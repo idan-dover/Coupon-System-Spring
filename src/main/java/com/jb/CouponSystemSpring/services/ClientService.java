@@ -15,9 +15,5 @@ public abstract class ClientService {
 
     @Autowired
     CouponRepository couponRepo;
-    
-    public boolean login(String email, String password) {
-        // TODO: 08/06/2023 implement login correctly  
-        return true;
-    }
+
 }

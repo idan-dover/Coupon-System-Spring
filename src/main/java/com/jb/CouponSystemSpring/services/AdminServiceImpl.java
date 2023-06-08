@@ -3,6 +3,7 @@ package com.jb.CouponSystemSpring.services;
 import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.Exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.beans.Company;
+import com.jb.CouponSystemSpring.beans.Coupon;
 import com.jb.CouponSystemSpring.beans.Customer;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,8 @@ import java.util.List;
 
 @Service
 public class AdminServiceImpl extends ClientService implements AdminService {
+
+
     @Override
     public void addCompany(Company company) throws CouponException {
         if (companyRepo.existsById(company.getId())) {
@@ -98,4 +101,6 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         return customerRepo.findById(customerId)
                 .orElseThrow(() -> new CouponException(ErrMsg.NO_ID_FOUND));
     }
+
+
 }

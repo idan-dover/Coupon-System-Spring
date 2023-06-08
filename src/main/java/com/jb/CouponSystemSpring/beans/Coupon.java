@@ -48,4 +48,9 @@ public class Coupon {
     List<Customer> customers;
 
 
+    @PreRemove
+    public void removeCouponFromCustomers() {
+        customers.forEach(customer -> customer.getCoupons().remove(this));
+    }
+
 }

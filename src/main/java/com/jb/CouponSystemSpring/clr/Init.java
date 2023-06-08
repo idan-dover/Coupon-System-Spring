@@ -58,11 +58,12 @@ public class Init implements CommandLineRunner {
                 .build();
 
         coupon1.setCompany(company1);
-        coupon1.setCustomers(List.of(customer1));
+//        coupon1.setCustomers(List.of(customer1));
+        customer1.setCoupons(List.of(coupon1));
 
 
-        customerRepo.save(customer1);
         companyRepo.save(company1);
-        couponRepo.save(coupon1);
+//        couponRepo.save(coupon1);
+        customerRepo.save(customer1);
     }
 }
