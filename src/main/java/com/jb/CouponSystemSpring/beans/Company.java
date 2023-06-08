@@ -33,6 +33,6 @@ public class Company {
     @OneToMany(mappedBy = "company",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Coupon> coupons;
 
-    private final ClientType clientType= ClientType.COMPANY;
+
 
 }

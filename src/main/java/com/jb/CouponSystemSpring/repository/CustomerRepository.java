@@ -16,7 +16,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     boolean existsByEmailAndPassword(String email, String password);
 
-    @Query(value = "SELECT `id` FROM `coupon-system-spring`.companies WHERE `email`=?;", nativeQuery = true)
+    @Query(value = "SELECT `id` FROM `coupon-system-spring`.customers WHERE `email`=?", nativeQuery = true)
     int findIdByEmail(String email);
 
 }

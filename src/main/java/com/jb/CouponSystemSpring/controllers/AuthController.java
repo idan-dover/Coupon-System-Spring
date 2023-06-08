@@ -1,6 +1,7 @@
 package com.jb.CouponSystemSpring.controllers;
 
 import com.jb.CouponSystemSpring.Exceptions.CouponException;
+import com.jb.CouponSystemSpring.beans.Client;
 import com.jb.CouponSystemSpring.beans.ClientType;
 import com.jb.CouponSystemSpring.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +17,16 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/register/company")
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerAsCompany(@RequestBody String email) throws CouponException {
-        authService.register(email, ClientType.COMPANY);
+    public void register(@RequestBody Client client) throws CouponException {
+        authService.register(client);
     }
 
-    @PostMapping("/login/company")
+    @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
-    public UUID loginAsCompany(@RequestBody String email,String password) throws CouponException{
-        return authService.login(email,password,ClientType.COMPANY);
+    public UUID loginAsCompany(@RequestBody Client client) throws CouponException{
+        return authService.login(client);
     }
 
-    @PostMapping("/register/customer")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void registerAsCustomer(@RequestBody String email) throws CouponException {
-        authService.register(email, ClientType.CUSTOMER);
-    }
-
-    @PostMapping("/login/customer")
-    @ResponseStatus(HttpStatus.CREATED)
-    public UUID loginAsCustomer(@RequestBody String email,String password) throws CouponException{
-        return authService.login(email,password,ClientType.CUSTOMER);
-    }
 }

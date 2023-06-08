@@ -33,6 +33,10 @@ public class AdminServiceImpl extends ClientService implements AdminService {
     public void updateCompany(int companyId, Company toUpdate) throws CouponException {
         Company current = getCompanyById(companyId);
 
+        if (current.getId() != toUpdate.getId()) {
+            throw new CouponException(ErrMsg.NO_ID_FOUND);
+        }
+
         if (!current.getEmail().equals(toUpdate.getEmail())) {
             throw new CouponException(ErrMsg.CANT_UPDATE_EMAIL);
         }

@@ -2,80 +2,92 @@ package com.jb.CouponSystemSpring.services;
 
 import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.Exceptions.ErrMsg;
+import com.jb.CouponSystemSpring.beans.Client;
 import com.jb.CouponSystemSpring.beans.ClientType;
 import com.jb.CouponSystemSpring.beans.Company;
 import com.jb.CouponSystemSpring.beans.Customer;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Service
 public class AuthServiceImpl extends ClientService implements AuthService {
 
 
     @Override
-    public void register(String email, ClientType clientType) throws CouponException {
-        if (clientType.equals(ClientType.ADMIN)) {
+    public void register(Client client) throws CouponException {
+        ClientType type = client.getClientType();
+        if (type.equals(ClientType.ADMIN)) {
             throw new CouponException(ErrMsg.CANT_CREATE_ADMIN);
         }
 
-        switch (clientType) {
-            case COMPANY -> registerAsCompany(email);
-            case CUSTOMER -> registerAsCustomer(email);
+        switch (type) {
+            case COMPANY -> registerAsCompany(client);
+            case CUSTOMER -> registerAsCustomer(client);
         }
 
     }
 
-    private void registerAsCompany(String email) throws CouponException {
-        Company company = companyRepo.findByEmail(email)
-                .orElseThrow(() -> new CouponException(ErrMsg.NO_ID_FOUND));
-
-        if (companyRepo.existsByEmail(company.getEmail())) {
+    private void registerAsCompany(Client client) throws CouponException {
+        if (companyRepo.existsByEmail(client.getEmail())) {
             throw new CouponException(ErrMsg.EMAIL_ALREADY_EXISTS);
         }
+
+        Company company = Company.builder()
+                .name(client.getName())
+                .email(client.getEmail())
+                .password(client.getPassword())
+                .build();
 
         companyRepo.save(company);
     }
 
-    private void registerAsCustomer(String email) throws CouponException {
-        Customer customer = customerRepo.findByEmail(email)
-                .orElseThrow(() -> new CouponException(ErrMsg.NO_ID_FOUND));
-
-        if (customerRepo.existsByEmail(customer.getEmail())) {
+    private void registerAsCustomer(Client client) throws CouponException {
+        if (customerRepo.existsByEmail(client.getEmail())) {
             throw new CouponException(ErrMsg.EMAIL_ALREADY_EXISTS);
         }
+
+        Customer customer = Customer.builder()
+                .firstName(client.getFirstName())
+                .lastName(client.getLastName())
+                .email(client.getEmail())
+                .password(client.getPassword())
+                .build();
 
         customerRepo.save(customer);
     }
 
     @Override
-    public UUID login(String email, String password, ClientType clientType) throws CouponException {
-        switch (clientType) {
+    public UUID login(Client client) throws CouponException {
+        ClientType type = client.getClientType();
+        switch (type) {
             case COMPANY -> {
-                return loginAsCompany(email, password);
+                return loginAsCompany(client);
             }
 
             case CUSTOMER -> {
-                return loginAsCustomer(email,password);
+                return loginAsCustomer(client);
             }
         }
         return null;
     }
 
-    private UUID loginAsCompany(String email, String password) throws CouponException {
-        if (!companyRepo.existsByEmailAndPassword(email,password)) {
+    private UUID loginAsCompany(Client client) throws CouponException {
+        if (!companyRepo.existsByEmailAndPassword(client.getEmail(), client.getPassword())) {
             throw new CouponException(ErrMsg.EMAIL_OR_PASSWORD_INCORRECT);
         }
 
-        int id = companyRepo.findIdByEmail(email);
+        int id = companyRepo.findIdByEmail(client.getEmail());
 
         return tokenService.addToken(id,ClientType.COMPANY);
     }
 
-    private UUID loginAsCustomer(String email, String password) throws CouponException {
-        if (!customerRepo.existsByEmailAndPassword(email,password)) {
+    private UUID loginAsCustomer(Client client) throws CouponException {
+        if (!customerRepo.existsByEmailAndPassword(client.getEmail(), client.getPassword())) {
             throw new CouponException(ErrMsg.EMAIL_OR_PASSWORD_INCORRECT);
         }
 
-        int id = customerRepo.findIdByEmail(email);
+        int id = customerRepo.findIdByEmail(client.getEmail());
 
         return tokenService.addToken(id,ClientType.CUSTOMER);
     }

@@ -35,7 +35,7 @@ public class Customer {
     @ManyToMany
     private List<Coupon> coupons;
 
-    private final ClientType clientType= ClientType.CUSTOMER;
+
 
 
 }
