@@ -1,5 +1,6 @@
 package com.jb.CouponSystemSpring.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,8 +31,11 @@ public class Customer {
     private String password;
 
     @ToString.Exclude
+    @JsonIgnore
     @ManyToMany
     private List<Coupon> coupons;
+
+    private final ClientType clientType= ClientType.CUSTOMER;
 
 
 }

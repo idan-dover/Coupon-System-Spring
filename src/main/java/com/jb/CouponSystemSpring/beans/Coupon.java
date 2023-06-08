@@ -1,5 +1,6 @@
 package com.jb.CouponSystemSpring.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -44,9 +45,9 @@ public class Coupon {
     private String image;
 
     @ToString.Exclude
+    @JsonIgnore
     @ManyToMany(mappedBy = "coupons")
     List<Customer> customers;
-
 
     @PreRemove
     public void removeCouponFromCustomers() {

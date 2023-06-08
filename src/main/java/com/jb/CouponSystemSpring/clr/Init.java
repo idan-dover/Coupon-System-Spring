@@ -52,7 +52,7 @@ public class Init implements CommandLineRunner {
 
         Customer customer1 = Customer.builder()
                 .firstName("Moshe")
-                .lastName("David")
+                .lastName("Moshe")
                 .email("moshe@gmail.com")
                 .password("1234")
                 .build();

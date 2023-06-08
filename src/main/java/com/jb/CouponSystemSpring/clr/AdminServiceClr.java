@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
-@Order(2)
+//@Component
+//@Order(2)
 public class AdminServiceClr implements CommandLineRunner {
 
     @Autowired
@@ -81,13 +81,13 @@ public class AdminServiceClr implements CommandLineRunner {
         adminService.updateCompany(company1.getId(), company1);
         adminService.getAllCompanies().forEach(System.out::println);
 
-//        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ DELETING COMPANY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-//        try {
-//            adminService.deleteCompany(1);
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        adminService.getAllCompanies().forEach(System.out::println);
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ DELETING COMPANY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        try {
+            adminService.deleteCompany(1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        adminService.getAllCompanies().forEach(System.out::println);
 
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ADDING NEW CUSTOMER @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
@@ -133,13 +133,13 @@ public class AdminServiceClr implements CommandLineRunner {
 
         adminService.getAllCustomers().forEach(System.out::println);
 
-//        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ DELETING CUSTOMER @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-//        try {
-//            adminService.deleteCustomer(1);
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//
-//        adminService.getAllCustomers().forEach(System.out::println);
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ DELETING CUSTOMER @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        try {
+            adminService.deleteCustomer(1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        adminService.getAllCustomers().forEach(System.out::println);
     }
 }

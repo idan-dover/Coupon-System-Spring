@@ -75,6 +75,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
 
     @Override
     public void updateCustomer(int customerId, Customer toUpdate) throws CouponException {
+
         customerRepo.findById(customerId)
                 .orElseThrow(() -> new CouponException(ErrMsg.NO_ID_FOUND));
 
