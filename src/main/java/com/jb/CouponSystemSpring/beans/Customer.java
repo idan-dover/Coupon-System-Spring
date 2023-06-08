@@ -1,10 +1,7 @@
 package com.jb.CouponSystemSpring.beans;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -32,6 +29,9 @@ public class Customer {
     @Column(nullable = false)
     private String password;
 
+    @ToString.Exclude
     @ManyToMany
     private List<Coupon> coupons;
+
+
 }

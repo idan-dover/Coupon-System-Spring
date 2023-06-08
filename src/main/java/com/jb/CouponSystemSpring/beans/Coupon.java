@@ -1,12 +1,10 @@
 package com.jb.CouponSystemSpring.beans;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "coupons")
@@ -21,6 +19,7 @@ public class Coupon {
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "companyId")
     private Company company;
 
     private Category category;
@@ -43,5 +42,10 @@ public class Coupon {
     private double price;
 
     private String image;
+
+    @ToString.Exclude
+    @ManyToMany(mappedBy = "coupons")
+    List<Customer> customers;
+
 
 }

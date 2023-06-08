@@ -55,14 +55,14 @@ public class Init implements CommandLineRunner {
                 .lastName("David")
                 .email("moshe@gmail.com")
                 .password("1234")
-                .coupons(List.of(coupon1))
                 .build();
 
         coupon1.setCompany(company1);
+        coupon1.setCustomers(List.of(customer1));
 
 
-        companyRepo.save(company1);
         customerRepo.save(customer1);
+        companyRepo.save(company1);
         couponRepo.save(coupon1);
     }
 }

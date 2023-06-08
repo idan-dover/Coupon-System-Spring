@@ -1,10 +1,7 @@
 package com.jb.CouponSystemSpring.beans;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -29,6 +26,7 @@ public class Company {
     @Column(nullable = false)
     private String password;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "company",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Coupon> coupons;
 }
