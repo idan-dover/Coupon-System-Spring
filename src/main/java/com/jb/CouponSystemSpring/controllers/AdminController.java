@@ -25,7 +25,7 @@ public class AdminController {
 
     @PutMapping("/company/id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCompany(@RequestParam int val,@RequestBody Company company) throws CouponException {
+    public void updateCompany(@RequestParam int val, @RequestBody Company company) throws CouponException {
         adminService.updateCompany(val, company);
     }
 
@@ -45,6 +45,7 @@ public class AdminController {
         return adminService.getCompanyById(val);
 
     }
+
     @PostMapping("/customer")
     @ResponseStatus(HttpStatus.CREATED)
     public void addCustomer(@RequestBody Customer customer) throws CouponException {
@@ -72,8 +73,6 @@ public class AdminController {
     public Customer getCustomerById(@RequestParam int val) throws CouponException {
         return adminService.getCustomerById(val);
     }
-
-
 
 
 }

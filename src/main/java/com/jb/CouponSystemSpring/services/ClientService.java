@@ -12,7 +12,6 @@ import java.util.UUID;
 public abstract class ClientService {
 
 
-
     @Autowired
     CompanyRepository companyRepo;
 
@@ -27,7 +26,7 @@ public abstract class ClientService {
 
 
     public boolean login(UUID token, ClientType clientType) {
-        return tokenService.isUserAllowed(token,clientType);
+        return tokenService.isUserAllowed(token, clientType);
     }
 
 }

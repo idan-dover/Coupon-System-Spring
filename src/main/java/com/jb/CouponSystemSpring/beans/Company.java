@@ -30,9 +30,8 @@ public class Company {
 
     @ToString.Exclude
     @JsonIgnore
-    @OneToMany(mappedBy = "company",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    @OneToMany(mappedBy = "company", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Coupon> coupons;
-
 
 
 }

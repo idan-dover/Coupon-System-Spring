@@ -24,7 +24,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
-    public UUID loginAsCompany(@RequestBody User user) throws CouponException{
+    public UUID loginAsCompany(@RequestBody User user) throws CouponException {
         return authService.login(user);
     }
 

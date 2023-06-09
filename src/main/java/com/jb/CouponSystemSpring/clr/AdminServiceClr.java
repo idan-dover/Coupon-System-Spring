@@ -112,9 +112,10 @@ public class AdminServiceClr implements CommandLineRunner {
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
-        customer1.setEmail("idan@gmail.com");
+            customer1.setEmail("idan@gmail.com");
 
-        }try {
+        }
+        try {
             adminService.addCustomer(customer1);
         } catch (Exception e) {
             System.out.println(e.getMessage());

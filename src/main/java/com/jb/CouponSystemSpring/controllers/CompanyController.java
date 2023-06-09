@@ -21,16 +21,15 @@ public class CompanyController {
 
     @PostMapping("/{token}/coupon")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCoupon(@PathVariable UUID token,@RequestBody Coupon coupon) throws CouponException {
+    public void addCoupon(@PathVariable UUID token, @RequestBody Coupon coupon) throws CouponException {
         companyService.addCoupon(token, coupon);
     }
 
     @PutMapping("/{token}/coupon")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCoupon(@PathVariable UUID token, @RequestParam int val,@RequestBody Coupon coupon) throws CouponException {
+    public void updateCoupon(@PathVariable UUID token, @RequestParam int val, @RequestBody Coupon coupon) throws CouponException {
         companyService.updateCoupon(token, val, coupon);
     }
-
 
 
     @GetMapping("/{token}")
@@ -41,22 +40,22 @@ public class CompanyController {
     @DeleteMapping("/{token}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCoupon(@PathVariable UUID token, @RequestParam int val) throws CouponException {
-        companyService.deleteCoupon(token,val);
+        companyService.deleteCoupon(token, val);
     }
 
     @GetMapping("/{token}/coupon")
-    public List<Coupon> getAllCoupons(@PathVariable UUID token)throws CouponException {
-      return   companyService.getAllCoupons(token);
+    public List<Coupon> getAllCoupons(@PathVariable UUID token) throws CouponException {
+        return companyService.getAllCoupons(token);
     }
 
     @GetMapping("/{token}/coupon/category")
-    public List<Coupon> getAllCoupons(@PathVariable UUID token, @RequestParam Category val)throws CouponException {
-       return companyService.getAllCoupons(token,val);
+    public List<Coupon> getAllCoupons(@PathVariable UUID token, @RequestParam Category val) throws CouponException {
+        return companyService.getAllCoupons(token, val);
     }
 
     @GetMapping("/{token}/coupon/price")
-    public List<Coupon> getAllCoupons(@PathVariable UUID token, @RequestParam double val)throws CouponException {
-      return   companyService.getAllCoupons(token,val);
+    public List<Coupon> getAllCoupons(@PathVariable UUID token, @RequestParam double val) throws CouponException {
+        return companyService.getAllCoupons(token, val);
     }
 
 

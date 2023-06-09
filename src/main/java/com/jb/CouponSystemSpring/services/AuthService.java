@@ -8,5 +8,6 @@ import java.util.UUID;
 public interface AuthService {
 
     void register(User user) throws CouponException;
+
     UUID login(User user) throws CouponException;
 }

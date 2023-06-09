@@ -3,13 +3,11 @@ package com.jb.CouponSystemSpring.security;
 import com.jb.CouponSystemSpring.beans.ClientType;
 
 import com.jb.CouponSystemSpring.services.ClientService;
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class TokenServiceImpl implements TokenService {
@@ -47,8 +45,8 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public void clear() {
-        this.tokens.values()
-                .removeIf(info -> info.getTime().isAfter(LocalDateTime.now().plusMinutes(30)));
+    public void clear(int toClear) {
+        this.tokens.entrySet()
+                .removeIf(entry -> entry.getValue().getTime().plusMinutes(toClear).isBefore(LocalDateTime.now()));
     }
 }

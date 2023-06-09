@@ -4,7 +4,7 @@ import com.jb.CouponSystemSpring.beans.Category;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerServiceImpl extends ClientService implements CustomerService{
+public class CustomerServiceImpl extends ClientService implements CustomerService {
     @Override
     public void purchaseCoupon(int couponId) {
 

@@ -79,7 +79,7 @@ public class AuthServiceImpl extends ClientService implements AuthService {
 
         int id = companyRepo.findIdByEmail(user.getEmail());
 
-        return tokenService.addToken(id,ClientType.COMPANY);
+        return tokenService.addToken(id, ClientType.COMPANY);
     }
 
     private UUID loginAsCustomer(User user) throws CouponException {
@@ -89,7 +89,7 @@ public class AuthServiceImpl extends ClientService implements AuthService {
 
         int id = customerRepo.findIdByEmail(user.getEmail());
 
-        return tokenService.addToken(id,ClientType.CUSTOMER);
+        return tokenService.addToken(id, ClientType.CUSTOMER);
     }
 
 

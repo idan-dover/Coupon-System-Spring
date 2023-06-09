@@ -25,5 +25,6 @@ public interface AdminService {
     void deleteCustomer(int customerId) throws CouponException;
 
     List<Customer> getAllCustomers();
+
     Customer getCustomerById(int customerId) throws CouponException;
 }

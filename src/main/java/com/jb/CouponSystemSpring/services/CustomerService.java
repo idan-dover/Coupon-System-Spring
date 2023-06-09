@@ -15,5 +15,4 @@ public interface CustomerService {
     void getDetails();
 
 
-
 }

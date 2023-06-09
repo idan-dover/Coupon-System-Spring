@@ -36,6 +36,4 @@ public class Customer {
     private List<Coupon> coupons;
 
 
-
-
 }

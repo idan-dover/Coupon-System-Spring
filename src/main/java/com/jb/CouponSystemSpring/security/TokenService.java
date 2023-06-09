@@ -12,6 +12,6 @@ public interface TokenService {
 
     Information getUserInfo(UUID token, ClientType type);
 
-    void clear();
+    void clear(int timeToClear);
 
 }
