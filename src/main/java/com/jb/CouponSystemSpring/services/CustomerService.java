@@ -1,18 +1,24 @@
 package com.jb.CouponSystemSpring.services;
 
+import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.beans.Category;
+import com.jb.CouponSystemSpring.beans.Coupon;
+import com.jb.CouponSystemSpring.beans.Customer;
+
+import java.util.List;
+import java.util.UUID;
 
 public interface CustomerService {
 
-    void purchaseCoupon(int couponId);
+    void purchaseCoupon(UUID token, int couponId) throws CouponException;
 
-    void getAllCoupons();
+    List<Coupon> getAllCoupons(UUID token) throws CouponException;
 
-    void getAllCoupons(Category category);
+    List<Coupon> getAllCoupons(UUID token, Category category) throws CouponException;
 
-    void getAllCoupons(double maxPrice);
+    List<Coupon> getAllCoupons(UUID token, double maxPrice) throws CouponException;
 
-    void getDetails();
+    Customer getDetails(UUID token) throws CouponException;
 
 
 }

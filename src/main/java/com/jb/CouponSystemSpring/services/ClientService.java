@@ -29,4 +29,8 @@ public abstract class ClientService {
         return tokenService.isUserAllowed(token, clientType);
     }
 
+    protected boolean convertLongToBoolean(Long res) {
+        return res == 1;
+    }
+
 }

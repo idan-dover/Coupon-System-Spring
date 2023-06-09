@@ -35,5 +35,10 @@ public class Customer {
     @ManyToMany
     private List<Coupon> coupons;
 
+    public void addCoupon(Coupon coupon) {
+        coupons.add(coupon);
+        coupon.customers.add(this);
+    }
+
 
 }
