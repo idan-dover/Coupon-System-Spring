@@ -14,7 +14,10 @@ public enum ErrMsg {
     CANT_CREATE_ADMIN("LOL😹 you can't register as admin"),
     EMAIL_OR_PASSWORD_INCORRECT("LOL😹 email or password are incorrect"),
     INCORRECT_EMAIL("LOL😹 email is incorrect"),
-    INCORRECT_PASSWORD("LOL😹 password is incorrect");
+    INCORRECT_PASSWORD("LOL😹 password is incorrect"),
+    INCORRECT_TOKEN("LOL😹 token is incorrect"),
+    DUPLICATE_TITLE("LOL😹 you can't add a coupon with the same title"),
+    ID_MISMATCH("LOL😹 the coupon you want to update does not match to the one inside the DB");
 
     private final String message;
 }

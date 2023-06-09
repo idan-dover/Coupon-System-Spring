@@ -10,6 +10,8 @@ public interface TokenService {
 
     boolean isUserAllowed(UUID token, ClientType type);
 
+    Information getUserInfo(UUID token, ClientType type);
+
     void clear();
 
 }

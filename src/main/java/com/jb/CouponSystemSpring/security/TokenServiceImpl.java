@@ -42,6 +42,11 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
+    public Information getUserInfo(UUID token, ClientType type) {
+        return tokens.get(token);
+    }
+
+    @Override
     public void clear() {
         this.tokens.values()
                 .removeIf(info -> info.getTime().isAfter(LocalDateTime.now().plusMinutes(30)));
