@@ -12,7 +12,6 @@ import java.util.List;
 @Service
 public class AdminServiceImpl extends ClientService implements AdminService {
 
-
     @Override
     public void addCompany(Company company) throws CouponException {
         if (companyRepo.existsById(company.getId())) {
@@ -106,6 +105,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         return customerRepo.findById(customerId)
                 .orElseThrow(() -> new CouponException(ErrMsg.NO_ID_FOUND));
     }
+
 
 
 }
