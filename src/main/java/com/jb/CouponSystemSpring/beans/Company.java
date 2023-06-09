@@ -33,5 +33,8 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Coupon> coupons;
 
-
+    public void addCoupons(List<Coupon> coupons) {
+        setCoupons(coupons);
+        coupons.forEach(coupon -> coupon.setCompany(this));
+    }
 }
