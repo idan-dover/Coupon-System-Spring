@@ -1,5 +1,7 @@
 package com.jb.CouponSystemSpring.security;
 
+import com.jb.CouponSystemSpring.Exceptions.CouponException;
+import com.jb.CouponSystemSpring.Exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.beans.ClientType;
 
 import com.jb.CouponSystemSpring.services.ClientService;
@@ -31,8 +33,11 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public boolean isUserAllowed(UUID token, ClientType type) {
+    public boolean isUserAllowed(UUID token, ClientType type) throws CouponException {
         Information info = tokens.get(token);
+        if (info == null) {
+            throw new CouponException(ErrMsg.INCORRECT_TOKEN);
+        }
 
         ClientType clientType = info.getClientType();
 

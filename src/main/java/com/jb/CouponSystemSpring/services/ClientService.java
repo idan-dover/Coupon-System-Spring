@@ -1,5 +1,6 @@
 package com.jb.CouponSystemSpring.services;
 
+import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.beans.ClientType;
 import com.jb.CouponSystemSpring.repository.CompanyRepository;
 import com.jb.CouponSystemSpring.repository.CouponRepository;
@@ -25,7 +26,7 @@ public abstract class ClientService {
     TokenService tokenService;
 
 
-    public boolean login(UUID token, ClientType clientType) {
+    public boolean login(UUID token, ClientType clientType) throws CouponException {
         return tokenService.isUserAllowed(token, clientType);
     }
 
