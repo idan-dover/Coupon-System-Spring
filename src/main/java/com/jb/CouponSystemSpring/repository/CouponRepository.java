@@ -32,6 +32,7 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM `coupon-system-spring`.coupons WHERE end_date < ?", nativeQuery = true)
-    void deleteExpiredCoupons(Date expiryDate);
+    @Query(value = "DELETE FROM Coupon c WHERE c.endDate < :expiryDate")
+    void deleteExpiredCoupons(@Param("expiryDate") Date expiryDate);
+
 }

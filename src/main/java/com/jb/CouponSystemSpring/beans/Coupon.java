@@ -51,7 +51,13 @@ public class Coupon {
 
     @PreRemove
     public void removeCouponFromCustomers() {
-        customers.forEach(customer -> customer.getCoupons().remove(this));
+        if (customers != null) {
+            for (Customer customer : customers) {
+                customer.getCoupons().remove(this);
+            }
+            customers.clear();
+        }
     }
+
 
 }
