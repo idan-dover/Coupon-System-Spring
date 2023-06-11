@@ -5,9 +5,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -24,6 +26,12 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Coupon c SET c.amount = c.amount - 1 WHERE c.id = ?1")
+    @Query(value = "UPDATE `coupon-system-spring`.coupons c SET c.amount = c.amount - 1 WHERE c.id = ?", nativeQuery = true)
     void reduceAmountById(int couponId);
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM `coupon-system-spring`.coupons WHERE end_date < ?", nativeQuery = true)
+    void deleteExpiredCoupons(Date expiryDate);
 }
