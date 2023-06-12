@@ -18,7 +18,7 @@ import java.util.UUID;
 public class CustomerController {
 
     @Autowired
-    CustomerService customerService;
+    private CustomerService customerService;
 
     @PutMapping("/{token}/coupon")
     @ResponseStatus(HttpStatus.NO_CONTENT)

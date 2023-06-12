@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class RemoveExpiredCoupons {
 
     @Autowired
-    CouponRepository couponRepo;
+    private CouponRepository couponRepo;
 
     private static final int RATE = 1;
 

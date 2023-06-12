@@ -15,7 +15,7 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    AdminService adminService;
+    private AdminService adminService;
 
     @PostMapping("/company")
     @ResponseStatus(HttpStatus.CREATED)
