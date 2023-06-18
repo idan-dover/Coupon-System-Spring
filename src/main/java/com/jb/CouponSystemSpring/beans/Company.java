@@ -1,7 +1,5 @@
 package com.jb.CouponSystemSpring.beans;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,7 +27,6 @@ public class Company {
     private String password;
 
     @ToString.Exclude
-    @JsonIgnore
     @OneToMany(mappedBy = "company", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Coupon> coupons;
 

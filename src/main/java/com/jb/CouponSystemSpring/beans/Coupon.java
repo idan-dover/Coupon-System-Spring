@@ -21,6 +21,8 @@ public class Coupon {
 
     @ManyToOne
     @JoinColumn(name = "companyId")
+    @ToString.Exclude
+    @JsonIgnore
     private Company company;
 
     private Category category;

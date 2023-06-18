@@ -3,13 +3,12 @@ package com.jb.CouponSystemSpring.security;
 import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.Exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.beans.ClientType;
-
-import com.jb.CouponSystemSpring.services.ClientService;
-import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class TokenServiceImpl implements TokenService {

@@ -21,7 +21,7 @@ public enum ErrMsg {
     ID_MISMATCH("LOL😹 the coupon you want to update does not match to the one inside the DB"),
     CANT_PURCHASE_TWICE("LOL😹 you can't buy the same coupon twice"),
     OUT_OF_STOCK("LOL😹 this coupon is out of stock"),
-    EXPIRED("LOL😹 this coupon is expired");
+    EXPIRED("LOL😹 this coupon is expired"), NO_OWNERSHIP("LOL😹 you don't own this coupon");
 
     private final String message;
 }

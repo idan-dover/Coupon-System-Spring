@@ -1,8 +1,10 @@
 package com.jb.CouponSystemSpring.beans;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -30,8 +32,6 @@ public class Customer {
     @Column(nullable = false)
     private String password;
 
-    @ToString.Exclude
-    @JsonIgnore
     @ManyToMany
     private List<Coupon> coupons;
 

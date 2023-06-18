@@ -1,11 +1,11 @@
 package com.jb.CouponSystemSpring.repository;
 
+import com.jb.CouponSystemSpring.beans.Category;
 import com.jb.CouponSystemSpring.beans.Coupon;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -16,13 +16,18 @@ import java.util.List;
 public interface CouponRepository extends JpaRepository<Coupon, Integer> {
     List<Coupon> findByCompanyId(int companyId);
 
+    List<Coupon> findByCompanyIdAndCategory(int companyId, Category category);
+
+    List<Coupon> findByCompanyIdAndPriceLessThan(int companyId, double price);
+
+    boolean existsById(int couponId);
+
     boolean existsByCompanyIdAndTitle(int companyId, String title);
 
     boolean existsByIdAndEndDateBefore(int couponId, LocalDate today);
 
-    @Query(value = "SELECT EXISTS(SELECT * FROM `coupon-system-spring`.coupons" +
-            " WHERE `id`=? AND `amount`<=0 )", nativeQuery = true)
-    Long couponOutOfStock(int couponId);
+    boolean existsByIdAndAmountLessThan(int couponId, int amount);
+
 
     @Modifying
     @Transactional
@@ -33,12 +38,12 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
     @Modifying
     @Transactional
     @Query(value = "delete from customers_coupons where customers_coupons.coupons_id " +
-            "in(select c1_0.id from coupons c1_0 where c1_0.end_date<?)",nativeQuery = true)
+            "in(select c1_0.id from coupons c1_0 where c1_0.end_date<?)", nativeQuery = true)
     void removeCustomersFromExpiredCoupons(Date expiryDate);
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM coupons c WHERE c.end_date < ?",nativeQuery = true)
+    @Query(value = "DELETE FROM coupons c WHERE c.end_date < ?", nativeQuery = true)
     void deleteExpiredCoupons(Date expiryDate);
 
     default void removeExpiredCoupons(Date expiryDate) {
@@ -46,9 +51,5 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
         deleteExpiredCoupons(expiryDate);
     }
 
-    // TODO: 11/06/2023 ask kobi what way is better without native query and use param or add more functions
-//    @Modifying
-//    @Transactional
-//    @Query("DELETE FROM Coupon c WHERE c.endDate < :expiryDate")
-//    void deleteExpiredCoupons(@Param("expiryDate") Date expiryDate);
+    boolean existsByIdAndCompanyId(int couponId, int companyId);
 }

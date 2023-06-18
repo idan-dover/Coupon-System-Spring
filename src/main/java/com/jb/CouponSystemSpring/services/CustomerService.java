@@ -8,17 +8,9 @@ import com.jb.CouponSystemSpring.beans.Customer;
 import java.util.List;
 import java.util.UUID;
 
-public interface CustomerService {
+public interface CustomerService extends UserService{
 
     void purchaseCoupon(UUID token, int couponId) throws CouponException;
 
-    List<Coupon> getAllCoupons(UUID token) throws CouponException;
-
-    List<Coupon> getAllCoupons(UUID token, Category category) throws CouponException;
-
-    List<Coupon> getAllCoupons(UUID token, double maxPrice) throws CouponException;
-
     Customer getDetails(UUID token) throws CouponException;
-
-
 }

@@ -17,12 +17,11 @@ import java.util.UUID;
 public class CustomerServiceImpl extends ClientService implements CustomerService {
     @Override
     public void purchaseCoupon(UUID token, int couponId) throws CouponException {
-        Customer customer = getDetails(token);
-        if (convertLongToBoolean(customerRepo.customerHasCoupon(customer.getId(), couponId))) {
+        if (customerRepo.existsByIdAndCouponsId(getClientId(token, ClientType.CUSTOMER), couponId)) {
             throw new CouponException(ErrMsg.CANT_PURCHASE_TWICE);
         }
 
-        if (convertLongToBoolean(couponRepo.couponOutOfStock(couponId))) {
+        if (couponRepo.existsByIdAndAmountLessThan(couponId, 1)) {
             throw new CouponException(ErrMsg.OUT_OF_STOCK);
         }
 
@@ -32,7 +31,11 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
 
         couponRepo.reduceAmountById(couponId);
 
-        customer.addCoupon(couponRepo.findById(couponId).get());
+        Customer customer = getDetails(token);
+
+        Coupon coupon = couponRepo.findById(couponId).orElseGet(() -> Coupon.builder().id(couponId).build());
+
+        customer.addCoupon(coupon);
 
         customerRepo.saveAndFlush(customer);
     }
@@ -59,11 +62,9 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
 
     @Override
     public Customer getDetails(UUID token) throws CouponException {
-        if (!tokenService.isUserAllowed(token, ClientType.CUSTOMER)) {
-            throw new CouponException(ErrMsg.INCORRECT_TOKEN);
-        }
+        checkIfClientAllowed(token, ClientType.CUSTOMER);
 
-        Information info = tokenService.getUserInfo(token, ClientType.COMPANY);
+        Information info = tokenService.getUserInfo(token, ClientType.CUSTOMER);
         return customerRepo.findById(info.getId())
                 .orElseThrow(() -> new CouponException(ErrMsg.NO_ID_FOUND));
     }

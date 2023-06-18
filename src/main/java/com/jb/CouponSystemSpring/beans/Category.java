@@ -10,5 +10,5 @@ public enum Category {
     FURNITURE,
     CARS,
     CLOTHING,
-    GROCERIES;
+    GROCERIES
 }

@@ -4,5 +4,5 @@ public enum ClientType {
 
     ADMIN,
     COMPANY,
-    CUSTOMER;
+    CUSTOMER
 }

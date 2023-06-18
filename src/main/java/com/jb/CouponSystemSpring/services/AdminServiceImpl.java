@@ -3,7 +3,6 @@ package com.jb.CouponSystemSpring.services;
 import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.Exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.beans.Company;
-import com.jb.CouponSystemSpring.beans.Coupon;
 import com.jb.CouponSystemSpring.beans.Customer;
 import org.springframework.stereotype.Service;
 

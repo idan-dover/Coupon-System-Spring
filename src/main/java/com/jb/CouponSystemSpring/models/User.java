@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// FIXME: 09/06/2023 SHOULD PROBABLY REMOVE THIS CLASS AND IMPLEMENT IT ANOTHER WAY
-// TODO: 09/06/2023 ASK KOBI IF I CAN DO THIS OR SHOULD I STILL OPEN A USER REPO AND IMPLEMENT IT AS SUCH
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,6 +1,7 @@
 package com.jb.CouponSystemSpring.services;
 
 import com.jb.CouponSystemSpring.Exceptions.CouponException;
+import com.jb.CouponSystemSpring.Exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.beans.ClientType;
 import com.jb.CouponSystemSpring.repository.CompanyRepository;
 import com.jb.CouponSystemSpring.repository.CouponRepository;
@@ -26,12 +27,16 @@ public abstract class ClientService {
     TokenService tokenService;
 
 
-    public boolean login(UUID token, ClientType clientType) throws CouponException {
-        return tokenService.isUserAllowed(token, clientType);
+    protected void checkIfClientAllowed(UUID token, ClientType clientType) throws CouponException {
+        if (!tokenService.isUserAllowed(token, clientType)) {
+            throw new CouponException(ErrMsg.INCORRECT_TOKEN);
+        }
     }
 
-    protected boolean convertLongToBoolean(Long res) {
-        return res == 1;
+    protected int getClientId(UUID token, ClientType clientType) throws CouponException {
+        checkIfClientAllowed(token, clientType);
+
+        return tokenService.getUserInfo(token, clientType).getId();
     }
 
 }
