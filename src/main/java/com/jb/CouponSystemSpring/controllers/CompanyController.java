@@ -17,7 +17,7 @@ import java.util.UUID;
 public class CompanyController {
 
     @Autowired
-    CompanyService companyService;
+    private CompanyService companyService;
 
     @PostMapping("/coupon")
     @ResponseStatus(HttpStatus.CREATED)
