@@ -1,7 +1,7 @@
 package com.jb.CouponSystemSpring.controllers;
 
 import com.jb.CouponSystemSpring.Exceptions.CouponException;
-import com.jb.CouponSystemSpring.beans.User;
+import com.jb.CouponSystemSpring.models.User;
 import com.jb.CouponSystemSpring.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -20,29 +20,29 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @PutMapping("/{token}/coupon")
+    @PutMapping("/coupon")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void purchase(@PathVariable UUID token, @RequestParam int val) throws CouponException {
+    public void purchase(@RequestHeader("token") UUID token, @RequestParam int val) throws CouponException {
         customerService.purchaseCoupon(token, val);
     }
 
-    @GetMapping("/{token}/coupon")
-    public List<Coupon> getAllCoupons(@PathVariable UUID token) throws CouponException {
+    @GetMapping("/coupon")
+    public List<Coupon> getAllCoupons(@RequestHeader("token") UUID token) throws CouponException {
         return customerService.getAllCoupons(token);
     }
 
-    @GetMapping("/{token}/coupon/category")
-    public List<Coupon> getAllCoupons(@PathVariable UUID token, @RequestParam Category val) throws CouponException {
+    @GetMapping("/coupon/category")
+    public List<Coupon> getAllCoupons(@RequestHeader("token") UUID token, @RequestParam Category val) throws CouponException {
         return customerService.getAllCoupons(token, val);
     }
 
-    @GetMapping("/{token}/coupon/price")
-    public List<Coupon> getAllCoupons(@PathVariable UUID token, @RequestParam double val) throws CouponException {
+    @GetMapping("/coupon/price")
+    public List<Coupon> getAllCoupons(@RequestHeader("token") UUID token, @RequestParam double val) throws CouponException {
         return customerService.getAllCoupons(token, val);
     }
 
-    @GetMapping("/{token}")
-    public Customer getDetails(@PathVariable UUID token) throws CouponException {
+    @GetMapping
+    public Customer getDetails(@RequestHeader("token") UUID token) throws CouponException {
         return customerService.getDetails(token);
     }
 }

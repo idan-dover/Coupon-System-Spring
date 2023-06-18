@@ -1,7 +1,7 @@
 package com.jb.CouponSystemSpring.services;
 
 import com.jb.CouponSystemSpring.Exceptions.CouponException;
-import com.jb.CouponSystemSpring.beans.User;
+import com.jb.CouponSystemSpring.models.User;
 
 import java.util.UUID;
 

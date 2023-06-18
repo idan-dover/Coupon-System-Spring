@@ -13,7 +13,7 @@ public class ClearExpiredToken {
     @Autowired
     private TokenService tokenService;
 
-    private static final int TIME_TO_CLEAR = 5;
+    private static final int TIME_TO_CLEAR = 30;
     private static final int DELAY = 10;
 
     @Scheduled(fixedDelay = DELAY,timeUnit = TimeUnit.SECONDS)
