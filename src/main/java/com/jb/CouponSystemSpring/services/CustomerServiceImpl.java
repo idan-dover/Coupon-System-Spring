@@ -33,7 +33,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
 
         Customer customer = getDetails(token);
 
-        Coupon coupon = couponRepo.findById(couponId).orElseGet(() -> Coupon.builder().id(couponId).build());
+        Coupon coupon = couponRepo.findById(couponId).get();
 
         customer.addCoupon(coupon);
 
