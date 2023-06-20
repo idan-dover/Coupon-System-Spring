@@ -1,6 +1,6 @@
 package com.jb.CouponSystemSpring.security;
 
-import com.jb.CouponSystemSpring.beans.ClientType;
+import com.jb.CouponSystemSpring.models.ClientType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

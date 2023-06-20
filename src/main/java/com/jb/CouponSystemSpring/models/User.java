@@ -1,7 +1,6 @@
 package com.jb.CouponSystemSpring.models;
 
 
-import com.jb.CouponSystemSpring.beans.ClientType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

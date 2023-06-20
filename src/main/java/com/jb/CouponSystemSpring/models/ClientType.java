@@ -1,4 +1,4 @@
-package com.jb.CouponSystemSpring.beans;
+package com.jb.CouponSystemSpring.models;
 
 public enum ClientType {
 
