@@ -2,10 +2,11 @@ package com.jb.CouponSystemSpring.services;
 
 import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.Exceptions.ErrMsg;
-import com.jb.CouponSystemSpring.models.User;
 import com.jb.CouponSystemSpring.beans.ClientType;
 import com.jb.CouponSystemSpring.beans.Company;
 import com.jb.CouponSystemSpring.beans.Customer;
+import com.jb.CouponSystemSpring.models.Register;
+import com.jb.CouponSystemSpring.models.User;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -15,7 +16,7 @@ public class AuthServiceImpl extends ClientService implements AuthService {
 
 
     @Override
-    public void register(User user) throws CouponException {
+    public void register(Register user) throws CouponException {
         ClientType type = user.getClientType();
         if (type.equals(ClientType.ADMIN)) {
             throw new CouponException(ErrMsg.CANT_CREATE_ADMIN);
@@ -28,13 +29,13 @@ public class AuthServiceImpl extends ClientService implements AuthService {
 
     }
 
-    private void registerAsCompany(User user) throws CouponException {
+    private void registerAsCompany(Register user) throws CouponException {
         if (companyRepo.existsByEmail(user.getEmail())) {
             throw new CouponException(ErrMsg.EMAIL_ALREADY_EXISTS);
         }
 
         Company company = Company.builder()
-                .name(user.getName())
+                .name((String) user.getParams().get("name"))
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .build();
@@ -42,14 +43,14 @@ public class AuthServiceImpl extends ClientService implements AuthService {
         companyRepo.save(company);
     }
 
-    private void registerAsCustomer(User user) throws CouponException {
+    private void registerAsCustomer(Register user) throws CouponException {
         if (customerRepo.existsByEmail(user.getEmail())) {
             throw new CouponException(ErrMsg.EMAIL_ALREADY_EXISTS);
         }
 
         Customer customer = Customer.builder()
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
+                .firstName((String) user.getParams().get("firstName"))
+                .lastName((String) user.getParams().get("lastName"))
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .build();
