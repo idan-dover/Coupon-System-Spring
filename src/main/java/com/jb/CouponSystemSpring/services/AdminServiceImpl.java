@@ -17,7 +17,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
 
     @Override
     public void addCompany(UUID token, Company company) throws CouponException {
-        checkIfClientAllowed(token, type);
+        validateToken(token, type);
 
         if (companyRepo.existsById(company.getId())) {
             throw new CouponException(ErrMsg.ID_ALREADY_EXISTS);
@@ -35,7 +35,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
 
     @Override
     public void updateCompany(UUID token, int companyId, Company toUpdate) throws CouponException {
-        checkIfClientAllowed(token, type);
+        validateToken(token, type);
 
         Company current = getCompanyById(token, companyId);
 
@@ -52,7 +52,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
 
     @Override
     public void deleteCompany(UUID token, int companyId) throws CouponException {
-        checkIfClientAllowed(token, type);
+        validateToken(token, type);
 
         if (!companyRepo.existsById(companyId)) {
             throw new CouponException(ErrMsg.NO_ID_FOUND);
@@ -63,20 +63,20 @@ public class AdminServiceImpl extends ClientService implements AdminService {
 
     @Override
     public List<Company> getAllCompanies(UUID token) throws CouponException {
-        checkIfClientAllowed(token, type);
+        validateToken(token, type);
         return companyRepo.findAll();
     }
 
     @Override
     public Company getCompanyById(UUID token, int companyId) throws CouponException {
-        checkIfClientAllowed(token, type);
+        validateToken(token, type);
         return companyRepo.findById(companyId).
                 orElseThrow(() -> new CouponException(ErrMsg.NO_ID_FOUND));
     }
 
     @Override
     public void addCustomer(UUID token, Customer customer) throws CouponException {
-        checkIfClientAllowed(token, type);
+        validateToken(token, type);
         if (customerRepo.existsById(customer.getId())) {
             throw new CouponException(ErrMsg.ID_ALREADY_EXISTS);
         }
@@ -90,7 +90,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
 
     @Override
     public void updateCustomer(UUID token, int customerId, Customer toUpdate) throws CouponException {
-        checkIfClientAllowed(token, type);
+        validateToken(token, type);
         Customer current = customerRepo.findById(customerId)
                 .orElseThrow(() -> new CouponException(ErrMsg.NO_ID_FOUND));
 
@@ -107,7 +107,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
 
     @Override
     public void deleteCustomer(UUID token, int customerId) throws CouponException {
-        checkIfClientAllowed(token, type);
+        validateToken(token, type);
         if (!customerRepo.existsById(customerId)) {
             throw new CouponException(ErrMsg.NO_ID_FOUND);
         }
@@ -118,13 +118,13 @@ public class AdminServiceImpl extends ClientService implements AdminService {
 
     @Override
     public List<Customer> getAllCustomers(UUID token) throws CouponException {
-        checkIfClientAllowed(token, type);
+        validateToken(token, type);
         return customerRepo.findAll();
     }
 
     @Override
     public Customer getCustomerById(UUID token, int customerId) throws CouponException {
-        checkIfClientAllowed(token, type);
+        validateToken(token, type);
         return customerRepo.findById(customerId)
                 .orElseThrow(() -> new CouponException(ErrMsg.NO_ID_FOUND));
     }

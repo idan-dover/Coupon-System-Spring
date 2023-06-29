@@ -70,7 +70,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
 
     @Override
     public Company getDetails(UUID token) throws CouponException {
-        checkIfClientAllowed(token, type);
+        validateToken(token, type);
 
         Information info = tokenService.getUserInfo(token, type);
         return companyRepo.findById(info.getId())

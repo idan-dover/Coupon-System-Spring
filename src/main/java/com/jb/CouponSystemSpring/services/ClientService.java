@@ -15,26 +15,26 @@ public abstract class ClientService {
 
 
     @Autowired
-    CompanyRepository companyRepo;
+    protected CompanyRepository companyRepo;
 
     @Autowired
-    CustomerRepository customerRepo;
+    protected CustomerRepository customerRepo;
 
     @Autowired
-    CouponRepository couponRepo;
+    protected CouponRepository couponRepo;
 
     @Autowired
-    TokenService tokenService;
+    protected TokenService tokenService;
 
 
-    protected void checkIfClientAllowed(UUID token, ClientType clientType) throws CouponException {
+    protected void validateToken(UUID token, ClientType clientType) throws CouponException {
         if (!tokenService.isUserAllowed(token, clientType)) {
             throw new CouponException(ErrMsg.INCORRECT_TOKEN);
         }
     }
 
     protected int getClientId(UUID token, ClientType clientType) throws CouponException {
-        checkIfClientAllowed(token, clientType);
+        validateToken(token, clientType);
 
         return tokenService.getUserInfo(token, clientType).getId();
     }

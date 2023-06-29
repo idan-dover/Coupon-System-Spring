@@ -66,7 +66,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
 
     @Override
     public Customer getDetails(UUID token) throws CouponException {
-        checkIfClientAllowed(token, type);
+        validateToken(token, type);
 
         Information info = tokenService.getUserInfo(token, type);
         return customerRepo.findById(info.getId())
