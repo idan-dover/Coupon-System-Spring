@@ -48,7 +48,7 @@ public class Init implements CommandLineRunner {
                 .endDate(Date.valueOf(LocalDate.now().plusWeeks(2)))
                 .amount(100)
                 .price(199.99)
-                .image("https://media2.giphy.com/media/frZfEju9PJQ8DAAEX6/giphy.gif?cid=ecf05e47b678tlyak0z23rubnjaty6oc72wx0tsiqdup1ewr&ep=v1_gifs_search&rid=giphy.gif&ct=g")
+                .image("https://media.giphy.com/media/F6ZC06fX688qk/giphy.gif")
                 .build();
 
         Company company2 = Company.builder()
@@ -67,7 +67,7 @@ public class Init implements CommandLineRunner {
                 .endDate(Date.valueOf(LocalDate.now().plusMonths(1)))
                 .amount(50)
                 .price(0)
-                .image("https://example.com/iphone-discount.jpg")
+                .image("https://media.giphy.com/media/26n79t82lmj989iAE/giphy.gif")
                 .build();
 
         Company company3 = Company.builder()
@@ -86,7 +86,7 @@ public class Init implements CommandLineRunner {
                 .endDate(Date.valueOf(LocalDate.now().plusYears(1)))
                 .amount(1000)
                 .price(0)
-                .image("https://example.com/starbucks-loyalty.jpg")
+                .image("https://media.giphy.com/media/hPTZgtzfRIB5Nfb5rL/giphy.gif")
                 .build();
 
         Company company4 = Company.builder()
@@ -105,7 +105,7 @@ public class Init implements CommandLineRunner {
                 .endDate(Date.valueOf(LocalDate.now().plusDays(2)))
                 .amount(500)
                 .price(0)
-                .image("https://example.com/amazon-prime-deals.jpg")
+                .image("https://media.giphy.com/media/l2QDSKSkhqITBLYBy/giphy.gif")
                 .build();
 
         Company company5 = Company.builder()
@@ -124,7 +124,7 @@ public class Init implements CommandLineRunner {
                 .endDate(Date.valueOf(LocalDate.now().plusMonths(3)))
                 .amount(100)
                 .price(299.99)
-                .image("https://example.com/gym-membership.jpg")
+                .image("https://media.giphy.com/media/WqmYGa2LjQlTG/giphy.gif")
                 .build();
 
 
@@ -203,6 +203,8 @@ public class Init implements CommandLineRunner {
         company3.addCoupons(List.of(coupon3));
         company4.addCoupons(List.of(coupon4));
         company5.addCoupons(List.of(coupon5));
+
+        customer1.setCoupons(List.of(coupon1, coupon2, coupon3, coupon4, coupon5));
 
         companyRepo.saveAll(List.of(company1, company2, company3, company4, company5));
         customerRepo.saveAll(List.of(customer1, customer2, customer3, customer4, customer5, customer6, customer7, customer8, customer9, customer10));

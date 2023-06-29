@@ -14,10 +14,11 @@ import java.util.UUID;
 
 @Service
 public class CompanyServiceImpl extends ClientService implements CompanyService {
+    private final ClientType type = ClientType.COMPANY;
 
     @Override
     public void addCoupon(UUID token, Coupon coupon) throws CouponException {
-        if (couponRepo.existsByCompanyIdAndTitle(getClientId(token, ClientType.COMPANY), coupon.getTitle())) {
+        if (couponRepo.existsByCompanyIdAndTitle(getClientId(token, type), coupon.getTitle())) {
             throw new CouponException(ErrMsg.DUPLICATE_TITLE);
         }
 
@@ -45,7 +46,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
 
     @Override
     public void deleteCoupon(UUID token, int couponId) throws CouponException {
-        if (!couponRepo.existsByIdAndCompanyId(couponId, getClientId(token, ClientType.COMPANY))) {
+        if (!couponRepo.existsByIdAndCompanyId(couponId, getClientId(token, type))) {
             throw new CouponException(ErrMsg.NO_OWNERSHIP);
         }
         couponRepo.deleteById(couponId);
@@ -53,25 +54,25 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
 
     @Override
     public List<Coupon> getAllCoupons(UUID token) throws CouponException {
-        return couponRepo.findByCompanyId(getClientId(token, ClientType.COMPANY));
+        return couponRepo.findByCompanyId(getClientId(token, type));
     }
 
     @Override
     public List<Coupon> getAllCoupons(UUID token, Category category) throws CouponException {
-        return couponRepo.findByCompanyIdAndCategory(getClientId(token, ClientType.COMPANY), category);
+        return couponRepo.findByCompanyIdAndCategory(getClientId(token, type), category);
     }
 
     @Override
     public List<Coupon> getAllCoupons(UUID token, double maxPrice) throws CouponException {
-        return couponRepo.findByCompanyIdAndPriceLessThan(getClientId(token, ClientType.COMPANY), maxPrice);
+        return couponRepo.findByCompanyIdAndPriceLessThan(getClientId(token, type), maxPrice);
     }
 
 
     @Override
     public Company getDetails(UUID token) throws CouponException {
-        checkIfClientAllowed(token, ClientType.COMPANY);
+        checkIfClientAllowed(token, type);
 
-        Information info = tokenService.getUserInfo(token, ClientType.COMPANY);
+        Information info = tokenService.getUserInfo(token, type);
         return companyRepo.findById(info.getId())
                 .orElseThrow(() -> new CouponException(ErrMsg.NO_ID_FOUND));
     }

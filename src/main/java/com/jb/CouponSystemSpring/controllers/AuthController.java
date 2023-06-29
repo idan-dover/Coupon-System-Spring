@@ -19,8 +19,8 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void register(@RequestBody Register user) throws CouponException {
-        authService.register(user);
+    public void register(@RequestBody Register register) throws CouponException {
+        authService.register(register);
     }
 
     @PostMapping("/login")

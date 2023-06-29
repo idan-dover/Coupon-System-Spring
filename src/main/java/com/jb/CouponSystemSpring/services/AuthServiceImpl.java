@@ -14,45 +14,44 @@ import java.util.UUID;
 @Service
 public class AuthServiceImpl extends ClientService implements AuthService {
 
-
     @Override
-    public void register(Register user) throws CouponException {
-        ClientType type = user.getClientType();
+    public void register(Register register) throws CouponException {
+        ClientType type = register.getClientType();
         if (type.equals(ClientType.ADMIN)) {
             throw new CouponException(ErrMsg.CANT_CREATE_ADMIN);
         }
 
         switch (type) {
-            case COMPANY -> registerAsCompany(user);
-            case CUSTOMER -> registerAsCustomer(user);
+            case COMPANY -> registerAsCompany(register);
+            case CUSTOMER -> registerAsCustomer(register);
         }
 
     }
 
-    private void registerAsCompany(Register user) throws CouponException {
-        if (companyRepo.existsByEmail(user.getEmail())) {
+    private void registerAsCompany(Register register) throws CouponException {
+        if (companyRepo.existsByEmail(register.getEmail())) {
             throw new CouponException(ErrMsg.EMAIL_ALREADY_EXISTS);
         }
 
         Company company = Company.builder()
-                .name((String) user.getParams().get("name"))
-                .email(user.getEmail())
-                .password(user.getPassword())
+                .name((String) register.getParams().get("name"))
+                .email(register.getEmail())
+                .password(register.getPassword())
                 .build();
 
         companyRepo.save(company);
     }
 
-    private void registerAsCustomer(Register user) throws CouponException {
-        if (customerRepo.existsByEmail(user.getEmail())) {
+    private void registerAsCustomer(Register register) throws CouponException {
+        if (customerRepo.existsByEmail(register.getEmail())) {
             throw new CouponException(ErrMsg.EMAIL_ALREADY_EXISTS);
         }
 
         Customer customer = Customer.builder()
-                .firstName((String) user.getParams().get("firstName"))
-                .lastName((String) user.getParams().get("lastName"))
-                .email(user.getEmail())
-                .password(user.getPassword())
+                .firstName((String) register.getParams().get("firstName"))
+                .lastName((String) register.getParams().get("lastName"))
+                .email(register.getEmail())
+                .password(register.getPassword())
                 .build();
 
         customerRepo.save(customer);
@@ -62,6 +61,9 @@ public class AuthServiceImpl extends ClientService implements AuthService {
     public UUID login(User user) throws CouponException {
         ClientType type = user.getClientType();
         switch (type) {
+            case ADMIN -> {
+                return loginAsAdmin(user);
+            }
             case COMPANY -> {
                 return loginAsCompany(user);
             }
@@ -71,6 +73,17 @@ public class AuthServiceImpl extends ClientService implements AuthService {
             }
         }
         return null;
+    }
+
+    private UUID loginAsAdmin(User user) throws CouponException {
+        String adminEmail = "admin@admin.com";
+        String adminPassword = "1234";
+
+        if (!user.getEmail().equals(adminEmail) || !user.getPassword().equals(adminPassword)) {
+            throw new CouponException(ErrMsg.EMAIL_OR_PASSWORD_INCORRECT);
+        }
+        
+        return tokenService.addToken(0, ClientType.ADMIN);
     }
 
     private UUID loginAsCompany(User user) throws CouponException {

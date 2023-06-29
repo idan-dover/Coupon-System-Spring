@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -19,59 +20,59 @@ public class AdminController {
 
     @PostMapping("/company")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCompany(@RequestBody Company company) throws CouponException {
-        adminService.addCompany(company);
+    public void addCompany(@RequestHeader("Authorization") UUID token, @RequestBody Company company) throws CouponException {
+        adminService.addCompany(token, company);
     }
 
     @PutMapping("/company/id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCompany(@RequestParam int val, @RequestBody Company company) throws CouponException {
-        adminService.updateCompany(val, company);
+    public void updateCompany(@RequestHeader("Authorization") UUID token, @RequestParam int val, @RequestBody Company company) throws CouponException {
+        adminService.updateCompany(token, val, company);
     }
 
     @DeleteMapping("/company/id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCompany(@RequestParam int val) throws CouponException {
-        adminService.deleteCompany(val);
+    public void deleteCompany(@RequestHeader("Authorization") UUID token, @RequestParam int val) throws CouponException {
+        adminService.deleteCompany(token, val);
     }
 
     @GetMapping("/company")
-    public List<Company> getAllCompanies() {
-        return adminService.getAllCompanies();
+    public List<Company> getAllCompanies(@RequestHeader("Authorization") UUID token) throws CouponException {
+        return adminService.getAllCompanies(token);
     }
 
     @GetMapping("/company/id")
-    public Company getCompanyById(@RequestParam int val) throws CouponException {
-        return adminService.getCompanyById(val);
+    public Company getCompanyById(@RequestHeader("Authorization") UUID token, @RequestParam int val) throws CouponException {
+        return adminService.getCompanyById(token, val);
 
     }
 
     @PostMapping("/customer")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCustomer(@RequestBody Customer customer) throws CouponException {
-        adminService.addCustomer(customer);
+    public void addCustomer(@RequestHeader("Authorization") UUID token, @RequestBody Customer customer) throws CouponException {
+        adminService.addCustomer(token, customer);
     }
 
     @PutMapping("/customer/id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCustomer(@RequestParam int val, @RequestBody Customer customer) throws CouponException {
-        adminService.updateCustomer(val, customer);
+    public void updateCustomer(@RequestHeader("Authorization") UUID token, @RequestParam int val, @RequestBody Customer customer) throws CouponException {
+        adminService.updateCustomer(token, val, customer);
     }
 
     @DeleteMapping("/customer/id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCustomer(@RequestParam int val) throws CouponException {
-        adminService.deleteCustomer(val);
+    public void deleteCustomer(@RequestHeader("Authorization") UUID token, @RequestParam int val) throws CouponException {
+        adminService.deleteCustomer(token, val);
     }
 
     @GetMapping("/customer")
-    public List<Customer> getAllCustomers() {
-        return adminService.getAllCustomers();
+    public List<Customer> getAllCustomers(@RequestHeader("Authorization") UUID token) throws CouponException {
+        return adminService.getAllCustomers(token);
     }
 
     @GetMapping("/customer/id")
-    public Customer getCustomerById(@RequestParam int val) throws CouponException {
-        return adminService.getCustomerById(val);
+    public Customer getCustomerById(@RequestHeader("Authorization") UUID token, @RequestParam int val) throws CouponException {
+        return adminService.getCustomerById(token, val);
     }
 
 
