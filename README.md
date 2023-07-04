@@ -51,7 +51,7 @@ emails:
 
 10. sophia@gmail.com
 
-## Dependecnies
+## Dependencies
 1. spring boot data jpa
 
 2. spring boot starter web
