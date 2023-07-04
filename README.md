@@ -17,53 +17,53 @@ email: admin@admin.com
 
 emails:
 
-1\. info@nike.com
+1. info@nike.com
 
-2\. info@apple.com
+2. info@apple.com
 
-3\. info@starbucks.com
+3. info@starbucks.com
 
-4\. info@amazon.com
+4. info@amazon.com
 
-5\. info@fitnessfirst.com
+5. info@fitnessfirst.com
 
 ### CUSTOMER
 
 emails:
 
-1\. moshe@gmail.com
+1. moshe@gmail.com
 
-2\. sarah@gmail.com
+2. sarah@gmail.com
 
-3\. john@gmail.com
+3. john@gmail.com
 
-4\. emily@gmail.com
+4. emily@gmail.com
 
-5\. michael@gmail.com
+5. michael@gmail.com
 
-6\. jessica@gmail.com
+6. jessica@gmail.com
 
-7\. david@gmail.com
+7. david@gmail.com
 
-8\. olivia@gmail.com
+8. olivia@gmail.com
 
-9\. daniel@gmail.com
+9. daniel@gmail.com
 
-10\. sophia@gmail.com
+10. sophia@gmail.com
 
 ## Dependecnies
-1\. spting boot data jpa
+1. spring boot data jpa
 
-2\. spting boot starter web
+2. spring boot starter web
 
-3\. mysql connector j
+3. mysql connector j
 
-4\.lombok
+4. lombok
 
-5\. spring boot starter test
+5. spring boot starter test
 
-6\. springdoc openapi starter webmvc ui
+6. springdoc openapi starter webmvc ui
 
-7\. springdoc openapi webmvc core
+7. springdoc openapi webmvc core
 
-8\. spring boot starter actuator
+8. spring boot starter actuator
