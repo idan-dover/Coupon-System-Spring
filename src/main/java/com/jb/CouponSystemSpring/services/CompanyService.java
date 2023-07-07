@@ -4,15 +4,13 @@ import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.beans.Company;
 import com.jb.CouponSystemSpring.beans.Coupon;
 
-import java.util.UUID;
-
 public interface CompanyService extends UserService {
 
-    void addCoupon(UUID token, Coupon coupon) throws CouponException;
+    void addCoupon(int companyId, Coupon coupon) throws CouponException;
 
-    void updateCoupon(UUID token, int couponId, Coupon coupon) throws CouponException;
+    void updateCoupon(int companyId, int couponId, Coupon coupon) throws CouponException;
 
-    void deleteCoupon(UUID token, int couponId) throws CouponException;
+    void deleteCoupon(int companyId, int couponId) throws CouponException;
 
-    Company getDetails(UUID token) throws CouponException;
+    Company getDetails(int companyId) throws CouponException;
 }

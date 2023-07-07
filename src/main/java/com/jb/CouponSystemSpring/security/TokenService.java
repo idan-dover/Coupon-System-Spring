@@ -13,6 +13,8 @@ public interface TokenService {
 
     Information getUserInfo(UUID token, ClientType type);
 
+    int validate(UUID token, ClientType type) throws CouponException;
+
     void clear(int timeToClear);
 
 }

@@ -31,6 +31,8 @@ public class TokenServiceImpl implements TokenService {
         return token;
     }
 
+    // TODO: 07/07/2023 ask kobi if this two methods are relevant
+
     @Override
     public boolean isUserAllowed(UUID token, ClientType type) throws CouponException {
         Information info = tokens.get(token);
@@ -46,6 +48,20 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public Information getUserInfo(UUID token, ClientType type) {
         return tokens.get(token);
+    }
+
+    @Override
+    public int validate(UUID token, ClientType type) throws CouponException {
+        Information info = tokens.get(token);
+        if (info == null) {
+            throw new CouponException(ErrMsg.INCORRECT_TOKEN);
+        }
+
+        if (type != info.getClientType()) {
+            throw new CouponException(ErrMsg.INCORRECT_TOKEN);
+        }
+
+        return info.getId();
     }
 
     @Override

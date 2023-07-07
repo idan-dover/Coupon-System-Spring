@@ -4,6 +4,8 @@ import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.beans.Category;
 import com.jb.CouponSystemSpring.beans.Coupon;
 import com.jb.CouponSystemSpring.beans.Customer;
+import com.jb.CouponSystemSpring.models.ClientType;
+import com.jb.CouponSystemSpring.security.TokenService;
 import com.jb.CouponSystemSpring.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,30 +22,40 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PutMapping("/coupon/purchase/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void purchase(@RequestHeader("Authorization") UUID token,
                          @PathVariable int id) throws CouponException {
-        customerService.purchaseCoupon(token, id);
+        int customerId = tokenService.validate(token, ClientType.CUSTOMER);
+        customerService.purchaseCoupon(customerId, id);
     }
 
     @GetMapping("/coupon")
     public List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token) throws CouponException {
-        return customerService.getAllCoupons(token);
+        int customerId = tokenService.validate(token, ClientType.CUSTOMER);
+        return customerService.getAllCoupons(customerId);
     }
 
     @GetMapping("/coupon/category")
-    public List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token, @RequestParam Category val) throws CouponException {
-        return customerService.getAllCoupons(token, val);
+    public List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token,
+                                      @RequestParam Category val) throws CouponException {
+        int customerId = tokenService.validate(token, ClientType.CUSTOMER);
+        return customerService.getAllCoupons(customerId, val);
     }
 
     @GetMapping("/coupon/price")
-    public List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token, @RequestParam double val) throws CouponException {
-        return customerService.getAllCoupons(token, val);
+    public List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token,
+                                      @RequestParam double val) throws CouponException {
+        int customerId = tokenService.validate(token, ClientType.CUSTOMER);
+        return customerService.getAllCoupons(customerId, val);
     }
 
     @GetMapping
     public Customer getDetails(@RequestHeader("Authorization") UUID token) throws CouponException {
-        return customerService.getDetails(token);
+        int customerId = tokenService.validate(token, ClientType.CUSTOMER);
+        return customerService.getDetails(customerId);
     }
 }
