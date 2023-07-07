@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.concurrent.TimeUnit;
 
 @Component
 public class RemoveExpiredCoupons {
@@ -15,9 +14,8 @@ public class RemoveExpiredCoupons {
     @Autowired
     private CouponRepository couponRepo;
 
-    private static final int RATE = 1;
 
-    @Scheduled(fixedRate = RATE, timeUnit = TimeUnit.DAYS)
+    @Scheduled(cron = "${job.clear-expired-coupons.delay-cron}")
     public void removeExpiredCoupons() {
         Date today = Date.valueOf(LocalDate.now());
         couponRepo.removeExpiredCoupons(today);

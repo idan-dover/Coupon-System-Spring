@@ -2,7 +2,6 @@ package com.jb.CouponSystemSpring.controllers;
 
 import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.beans.Category;
-import com.jb.CouponSystemSpring.beans.Company;
 import com.jb.CouponSystemSpring.beans.Coupon;
 import com.jb.CouponSystemSpring.beans.Customer;
 import com.jb.CouponSystemSpring.services.CustomerService;
@@ -16,14 +15,16 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerController {
-
+    // TODO: 07/07/2023 fix REST api
+    // TODO: 07/07/2023 make the service receive id and validate token here
     @Autowired
     private CustomerService customerService;
 
-    @PutMapping("/coupon")
+    @PutMapping("/coupon/purchase/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void purchase(@RequestHeader("Authorization") UUID token, @RequestParam int val) throws CouponException {
-        customerService.purchaseCoupon(token, val);
+    public void purchase(@RequestHeader("Authorization") UUID token,
+                         @PathVariable int id) throws CouponException {
+        customerService.purchaseCoupon(token, id);
     }
 
     @GetMapping("/coupon")

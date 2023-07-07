@@ -15,20 +15,23 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/company")
 public class CompanyController {
-
+    // TODO: 07/07/2023 make the service receive id and validate token here
     @Autowired
     private CompanyService companyService;
 
     @PostMapping("/coupon")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCoupon(@RequestHeader("Authorization") UUID token, @RequestBody Coupon coupon) throws CouponException {
+    public void addCoupon(@RequestHeader("Authorization") UUID token,
+                          @RequestBody Coupon coupon) throws CouponException {
         companyService.addCoupon(token, coupon);
     }
 
-    @PutMapping("/coupon")
+    @PutMapping("/coupon/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCoupon(@RequestHeader("Authorization") UUID token, @RequestParam int val, @RequestBody Coupon coupon) throws CouponException {
-        companyService.updateCoupon(token, val, coupon);
+    public void updateCoupon(@RequestHeader("Authorization") UUID token,
+                             @PathVariable int id,
+                             @RequestBody Coupon coupon) throws CouponException {
+        companyService.updateCoupon(token, id, coupon);
     }
 
 
@@ -39,7 +42,8 @@ public class CompanyController {
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCoupon(@RequestHeader("Authorization") UUID token, @RequestParam int val) throws CouponException {
+    public void deleteCoupon(@RequestHeader("Authorization") UUID token,
+                             @RequestParam int val) throws CouponException {
         companyService.deleteCoupon(token, val);
     }
 
@@ -49,12 +53,14 @@ public class CompanyController {
     }
 
     @GetMapping("/coupon/category")
-    public List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token, @RequestParam Category val) throws CouponException {
+    public List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token,
+                                      @RequestParam Category val) throws CouponException {
         return companyService.getAllCoupons(token, val);
     }
 
     @GetMapping("/coupon/price")
-    public List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token, @RequestParam double val) throws CouponException {
+    public List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token,
+                                      @RequestParam double val) throws CouponException {
         return companyService.getAllCoupons(token, val);
     }
 

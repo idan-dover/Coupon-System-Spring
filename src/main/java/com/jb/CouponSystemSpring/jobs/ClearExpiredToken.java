@@ -2,10 +2,9 @@ package com.jb.CouponSystemSpring.jobs;
 
 import com.jb.CouponSystemSpring.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.util.concurrent.TimeUnit;
 
 @Component
 public class ClearExpiredToken {
@@ -13,10 +12,11 @@ public class ClearExpiredToken {
     @Autowired
     private TokenService tokenService;
 
-    private static final int TIME_TO_CLEAR = 30;
-    private static final int DELAY = 10;
+    @Value("${job.clear-expired-token.clear-time}")
+    private int TIME_TO_CLEAR;
 
-    @Scheduled(fixedDelay = DELAY,timeUnit = TimeUnit.SECONDS)
+
+    @Scheduled(cron = "${job.clear-expired-token.delay-cron}")
     public void clearExpiredTokens() {
         tokenService.clear(TIME_TO_CLEAR);
     }
