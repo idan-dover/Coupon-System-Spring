@@ -1,6 +1,5 @@
 # Coupon-System-Spring
-
-An api for coupon website
+An api for coupon website 
 
 to see the api you can enter to this url after you start the application ▶ http://localhost:8080/swagger-ui/index.html#/
 
@@ -53,7 +52,6 @@ emails:
 10. sophia@gmail.com
 
 ## Dependencies
-
 1. spring boot data jpa
 
 2. spring boot starter web
