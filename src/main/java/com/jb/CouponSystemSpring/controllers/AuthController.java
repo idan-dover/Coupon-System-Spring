@@ -1,6 +1,6 @@
 package com.jb.CouponSystemSpring.controllers;
 
-import com.jb.CouponSystemSpring.Exceptions.CouponException;
+import com.jb.CouponSystemSpring.exceptions.CouponException;
 import com.jb.CouponSystemSpring.models.Register;
 import com.jb.CouponSystemSpring.models.User;
 import com.jb.CouponSystemSpring.services.AuthService;

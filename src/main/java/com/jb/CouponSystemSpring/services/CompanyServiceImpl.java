@@ -1,10 +1,10 @@
 package com.jb.CouponSystemSpring.services;
 
-import com.jb.CouponSystemSpring.Exceptions.CouponException;
-import com.jb.CouponSystemSpring.Exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.beans.Category;
 import com.jb.CouponSystemSpring.beans.Company;
 import com.jb.CouponSystemSpring.beans.Coupon;
+import com.jb.CouponSystemSpring.exceptions.CouponException;
+import com.jb.CouponSystemSpring.exceptions.ErrMsg;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,17 +49,17 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
     }
 
     @Override
-    public List<Coupon> getAllCoupons(int companyId) throws CouponException {
+    public List<Coupon> getAllCoupons(int companyId) {
         return couponRepo.findByCompanyId(companyId);
     }
 
     @Override
-    public List<Coupon> getAllCoupons(int companyId, Category category) throws CouponException {
+    public List<Coupon> getAllCoupons(int companyId, Category category) {
         return couponRepo.findByCompanyIdAndCategory(companyId, category);
     }
 
     @Override
-    public List<Coupon> getAllCoupons(int companyId, double maxPrice) throws CouponException {
+    public List<Coupon> getAllCoupons(int companyId, double maxPrice) {
         return couponRepo.findByCompanyIdAndPriceLessThan(companyId, maxPrice);
     }
 

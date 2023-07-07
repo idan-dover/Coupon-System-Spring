@@ -1,9 +1,9 @@
 package com.jb.CouponSystemSpring.services;
 
-import com.jb.CouponSystemSpring.Exceptions.CouponException;
-import com.jb.CouponSystemSpring.Exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.beans.Company;
 import com.jb.CouponSystemSpring.beans.Customer;
+import com.jb.CouponSystemSpring.exceptions.CouponException;
+import com.jb.CouponSystemSpring.exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.models.ClientType;
 import com.jb.CouponSystemSpring.models.Register;
 import com.jb.CouponSystemSpring.models.User;
@@ -82,7 +82,7 @@ public class AuthServiceImpl extends ClientService implements AuthService {
         if (!user.getEmail().equals(adminEmail) || !user.getPassword().equals(adminPassword)) {
             throw new CouponException(ErrMsg.EMAIL_OR_PASSWORD_INCORRECT);
         }
-        
+
         return tokenService.addToken(0, ClientType.ADMIN);
     }
 

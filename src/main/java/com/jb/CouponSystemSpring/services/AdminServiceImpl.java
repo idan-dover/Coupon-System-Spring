@@ -1,9 +1,9 @@
 package com.jb.CouponSystemSpring.services;
 
-import com.jb.CouponSystemSpring.Exceptions.CouponException;
-import com.jb.CouponSystemSpring.Exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.beans.Company;
 import com.jb.CouponSystemSpring.beans.Customer;
+import com.jb.CouponSystemSpring.exceptions.CouponException;
+import com.jb.CouponSystemSpring.exceptions.ErrMsg;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,7 +56,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
     }
 
     @Override
-    public List<Company> getAllCompanies() throws CouponException {
+    public List<Company> getAllCompanies() {
         return companyRepo.findAll();
     }
 
@@ -106,7 +106,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
     }
 
     @Override
-    public List<Customer> getAllCustomers() throws CouponException {
+    public List<Customer> getAllCustomers() {
         return customerRepo.findAll();
     }
 

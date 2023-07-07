@@ -1,8 +1,8 @@
 package com.jb.CouponSystemSpring.controllers;
 
-import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.beans.Company;
 import com.jb.CouponSystemSpring.beans.Customer;
+import com.jb.CouponSystemSpring.exceptions.CouponException;
 import com.jb.CouponSystemSpring.models.ClientType;
 import com.jb.CouponSystemSpring.security.TokenService;
 import com.jb.CouponSystemSpring.services.AdminService;

@@ -1,10 +1,10 @@
 package com.jb.CouponSystemSpring.services;
 
-import com.jb.CouponSystemSpring.Exceptions.CouponException;
-import com.jb.CouponSystemSpring.Exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.beans.Category;
 import com.jb.CouponSystemSpring.beans.Coupon;
 import com.jb.CouponSystemSpring.beans.Customer;
+import com.jb.CouponSystemSpring.exceptions.CouponException;
+import com.jb.CouponSystemSpring.exceptions.ErrMsg;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

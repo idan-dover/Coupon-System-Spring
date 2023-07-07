@@ -1,8 +1,8 @@
 package com.jb.CouponSystemSpring.services;
 
-import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.beans.Company;
 import com.jb.CouponSystemSpring.beans.Coupon;
+import com.jb.CouponSystemSpring.exceptions.CouponException;
 
 public interface CompanyService extends UserService {
 

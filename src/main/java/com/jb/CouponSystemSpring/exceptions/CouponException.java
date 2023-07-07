@@ -1,4 +1,4 @@
-package com.jb.CouponSystemSpring.Exceptions;
+package com.jb.CouponSystemSpring.exceptions;
 
 public class CouponException extends Exception {
 

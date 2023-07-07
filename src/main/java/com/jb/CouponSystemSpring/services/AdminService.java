@@ -1,8 +1,8 @@
 package com.jb.CouponSystemSpring.services;
 
-import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.beans.Company;
 import com.jb.CouponSystemSpring.beans.Customer;
+import com.jb.CouponSystemSpring.exceptions.CouponException;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface AdminService {
 
     void deleteCompany(int companyId) throws CouponException;
 
-    List<Company> getAllCompanies() throws CouponException;
+    List<Company> getAllCompanies();
 
     Company getCompanyById(int companyId) throws CouponException;
 
@@ -24,7 +24,7 @@ public interface AdminService {
 
     void deleteCustomer(int customerId) throws CouponException;
 
-    List<Customer> getAllCustomers() throws CouponException;
+    List<Customer> getAllCustomers();
 
     Customer getCustomerById(int customerId) throws CouponException;
 }

@@ -1,4 +1,4 @@
-package com.jb.CouponSystemSpring.Exceptions;
+package com.jb.CouponSystemSpring.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

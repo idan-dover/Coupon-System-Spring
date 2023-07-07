@@ -1,9 +1,9 @@
 package com.jb.CouponSystemSpring.controllers;
 
-import com.jb.CouponSystemSpring.Exceptions.CouponException;
 import com.jb.CouponSystemSpring.beans.Category;
 import com.jb.CouponSystemSpring.beans.Coupon;
 import com.jb.CouponSystemSpring.beans.Customer;
+import com.jb.CouponSystemSpring.exceptions.CouponException;
 import com.jb.CouponSystemSpring.models.ClientType;
 import com.jb.CouponSystemSpring.security.TokenService;
 import com.jb.CouponSystemSpring.services.CustomerService;
@@ -17,8 +17,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerController {
-    // TODO: 07/07/2023 fix REST api
-    // TODO: 07/07/2023 make the service receive id and validate token here
     @Autowired
     private CustomerService customerService;
 

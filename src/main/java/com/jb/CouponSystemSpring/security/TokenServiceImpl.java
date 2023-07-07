@@ -1,7 +1,7 @@
 package com.jb.CouponSystemSpring.security;
 
-import com.jb.CouponSystemSpring.Exceptions.CouponException;
-import com.jb.CouponSystemSpring.Exceptions.ErrMsg;
+import com.jb.CouponSystemSpring.exceptions.CouponException;
+import com.jb.CouponSystemSpring.exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.models.ClientType;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package com.jb.CouponSystemSpring.security;
 
-import com.jb.CouponSystemSpring.Exceptions.CouponException;
+import com.jb.CouponSystemSpring.exceptions.CouponException;
 import com.jb.CouponSystemSpring.models.ClientType;
 
 import java.util.UUID;
