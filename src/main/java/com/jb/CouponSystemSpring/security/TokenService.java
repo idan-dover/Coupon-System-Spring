@@ -2,12 +2,13 @@ package com.jb.CouponSystemSpring.security;
 
 import com.jb.CouponSystemSpring.exceptions.CouponException;
 import com.jb.CouponSystemSpring.models.ClientType;
+import com.jb.CouponSystemSpring.models.LoginResponse;
 
 import java.util.UUID;
 
 public interface TokenService {
 
-    UUID addToken(int id, ClientType clientType);
+    LoginResponse addToken(int id, ClientType clientType);
 
     boolean isUserAllowed(UUID token, ClientType type) throws CouponException;
 

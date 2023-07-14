@@ -5,11 +5,10 @@ import com.jb.CouponSystemSpring.beans.Customer;
 import com.jb.CouponSystemSpring.exceptions.CouponException;
 import com.jb.CouponSystemSpring.exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.models.ClientType;
+import com.jb.CouponSystemSpring.models.LoginResponse;
 import com.jb.CouponSystemSpring.models.Register;
 import com.jb.CouponSystemSpring.models.User;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 public class AuthServiceImpl extends ClientService implements AuthService {
@@ -58,7 +57,7 @@ public class AuthServiceImpl extends ClientService implements AuthService {
     }
 
     @Override
-    public UUID login(User user) throws CouponException {
+    public LoginResponse login(User user) throws CouponException {
         ClientType type = user.getClientType();
         switch (type) {
             case ADMIN -> {
@@ -75,7 +74,7 @@ public class AuthServiceImpl extends ClientService implements AuthService {
         return null;
     }
 
-    private UUID loginAsAdmin(User user) throws CouponException {
+    private LoginResponse loginAsAdmin(User user) throws CouponException {
         String adminEmail = "admin@admin.com";
         String adminPassword = "1234";
 
@@ -86,7 +85,7 @@ public class AuthServiceImpl extends ClientService implements AuthService {
         return tokenService.addToken(0, ClientType.ADMIN);
     }
 
-    private UUID loginAsCompany(User user) throws CouponException {
+    private LoginResponse loginAsCompany(User user) throws CouponException {
         if (!companyRepo.existsByEmailAndPassword(user.getEmail(), user.getPassword())) {
             throw new CouponException(ErrMsg.EMAIL_OR_PASSWORD_INCORRECT);
         }
@@ -96,7 +95,7 @@ public class AuthServiceImpl extends ClientService implements AuthService {
         return tokenService.addToken(id, ClientType.COMPANY);
     }
 
-    private UUID loginAsCustomer(User user) throws CouponException {
+    private LoginResponse loginAsCustomer(User user) throws CouponException {
         if (!customerRepo.existsByEmailAndPassword(user.getEmail(), user.getPassword())) {
             throw new CouponException(ErrMsg.EMAIL_OR_PASSWORD_INCORRECT);
         }

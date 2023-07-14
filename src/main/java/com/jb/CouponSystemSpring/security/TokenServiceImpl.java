@@ -3,6 +3,7 @@ package com.jb.CouponSystemSpring.security;
 import com.jb.CouponSystemSpring.exceptions.CouponException;
 import com.jb.CouponSystemSpring.exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.models.ClientType;
+import com.jb.CouponSystemSpring.models.LoginResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,7 +19,7 @@ public class TokenServiceImpl implements TokenService {
 
 
     @Override
-    public UUID addToken(int id, ClientType clientType) {
+    public LoginResponse addToken(int id, ClientType clientType) {
         UUID token = UUID.randomUUID();
 
         Information info = Information.builder()
@@ -28,7 +29,7 @@ public class TokenServiceImpl implements TokenService {
                 .build();
 
         tokens.put(token, info);
-        return token;
+        return new LoginResponse(token, clientType);
     }
 
     // TODO: 07/07/2023 ask kobi if this two methods are relevant
