@@ -1,9 +1,13 @@
 package com.jb.CouponSystemSpring.repository;
 
+import com.jb.CouponSystemSpring.beans.Coupon;
 import com.jb.CouponSystemSpring.beans.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
@@ -16,6 +20,12 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     @Query(value = "SELECT `id` FROM `coupon-system-spring`.customers WHERE `email`=?", nativeQuery = true)
     int findIdByEmail(String email);
+
+    @Query("SELECT DISTINCT c FROM Coupon c " +
+            "LEFT JOIN c.customers cc " +
+            "WHERE cc IS NULL OR cc.id <> :customerId")
+    List<Coupon> findUnsoldCoupons(@Param("customerId") int customerId);
+
 
 }
 

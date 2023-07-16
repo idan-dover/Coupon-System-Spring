@@ -31,6 +31,12 @@ public class CustomerController {
         customerService.purchaseCoupon(customerId, id);
     }
 
+    @GetMapping("/coupon/purchase")
+    public List<Coupon> getUnsoldCoupons(@RequestHeader("Authorization") UUID token) throws CouponException {
+        int customerId = tokenService.validate(token, ClientType.CUSTOMER);
+        return customerService.getUnsoldCoupons(customerId);
+    }
+
     @GetMapping("/coupon")
     public List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token) throws CouponException {
         int customerId = tokenService.validate(token, ClientType.CUSTOMER);

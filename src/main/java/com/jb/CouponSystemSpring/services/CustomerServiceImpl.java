@@ -61,11 +61,17 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
     }
 
     @Override
+    public List<Coupon> getUnsoldCoupons(int customerId) throws CouponException {
+        List<Coupon> coupons = customerRepo.findUnsoldCoupons(customerId);
+        System.out.println(coupons);
+        return coupons;
+    }
+
+    @Override
     public Customer getDetails(int customerId) throws CouponException {
 
         return customerRepo.findById(customerId)
                 .orElseThrow(() -> new CouponException(ErrMsg.NO_ID_FOUND));
     }
-
 
 }
