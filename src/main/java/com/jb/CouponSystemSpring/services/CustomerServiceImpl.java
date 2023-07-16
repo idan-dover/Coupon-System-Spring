@@ -62,9 +62,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
 
     @Override
     public List<Coupon> getUnsoldCoupons(int customerId) throws CouponException {
-        List<Coupon> coupons = customerRepo.findUnsoldCoupons(customerId);
-        System.out.println(coupons);
-        return coupons;
+        return customerRepo.findUnsoldCoupons(customerId);
     }
 
     @Override
