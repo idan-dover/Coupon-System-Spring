@@ -204,7 +204,7 @@ public class Init implements CommandLineRunner {
         company4.addCoupons(List.of(coupon4));
         company5.addCoupons(List.of(coupon5));
 
-        customer1.setCoupons(List.of(coupon1, coupon2, coupon3, coupon4, coupon5));
+        customer1.setCoupons(List.of(coupon1, coupon2, coupon3));
 
         companyRepo.saveAll(List.of(company1, company2, company3, company4, company5));
         customerRepo.saveAll(List.of(customer1, customer2, customer3, customer4, customer5, customer6, customer7, customer8, customer9, customer10));
