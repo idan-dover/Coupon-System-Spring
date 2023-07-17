@@ -21,11 +21,10 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Query(value = "SELECT `id` FROM `coupon-system-spring`.customers WHERE `email`=?", nativeQuery = true)
     int findIdByEmail(String email);
 
-    @Query("SELECT DISTINCT c FROM Coupon c " +
-            "LEFT JOIN c.customers cc " +
-            "WHERE cc IS NULL OR cc.id <> :customerId")
+    @Query("SELECT c FROM Coupon c " +
+            "WHERE NOT EXISTS " +
+            "(SELECT cc FROM c.customers cc WHERE cc.id = :customerId)")
     List<Coupon> findUnsoldCoupons(@Param("customerId") int customerId);
-
-
+    
 }
 
