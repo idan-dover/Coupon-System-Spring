@@ -3,15 +3,12 @@ package com.jb.CouponSystemSpring.controllers;
 import com.jb.CouponSystemSpring.beans.Company;
 import com.jb.CouponSystemSpring.beans.Customer;
 import com.jb.CouponSystemSpring.exceptions.CouponException;
-import com.jb.CouponSystemSpring.models.ClientType;
-import com.jb.CouponSystemSpring.security.TokenService;
 import com.jb.CouponSystemSpring.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -20,83 +17,62 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @Autowired
-    private TokenService tokenService;
-
     @PostMapping("/company")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCompany(@RequestHeader("Authorization") UUID token,
-                           @RequestBody Company company) throws CouponException {
-        tokenService.validate(token, ClientType.ADMIN);
+    public void addCompany(@RequestBody Company company) throws CouponException {
         adminService.addCompany(company);
     }
 
     @PutMapping("/company/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCompany(@RequestHeader("Authorization") UUID token,
-                              @PathVariable int id,
+    public void updateCompany(@PathVariable int id,
                               @RequestBody Company company) throws CouponException {
-        tokenService.validate(token, ClientType.ADMIN);
         adminService.updateCompany(id, company);
     }
 
     @DeleteMapping("/company/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCompany(@RequestHeader("Authorization") UUID token,
-                              @PathVariable int id) throws CouponException {
-        tokenService.validate(token, ClientType.ADMIN);
+    public void deleteCompany(@PathVariable int id) throws CouponException {
         adminService.deleteCompany(id);
     }
 
     @GetMapping("/company")
-    public List<Company> getAllCompanies(@RequestHeader("Authorization") UUID token) throws CouponException {
-        tokenService.validate(token, ClientType.ADMIN);
+    public List<Company> getAllCompanies() throws CouponException {
         return adminService.getAllCompanies();
     }
 
     @GetMapping("/company/{id}")
-    public Company getCompanyById(@RequestHeader("Authorization") UUID token,
-                                  @PathVariable int id) throws CouponException {
-        tokenService.validate(token, ClientType.ADMIN);
+    public Company getCompanyById(@PathVariable int id) throws CouponException {
         return adminService.getCompanyById(id);
 
     }
 
     @PostMapping("/customer")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCustomer(@RequestHeader("Authorization") UUID token,
-                            @RequestBody Customer customer) throws CouponException {
-        tokenService.validate(token, ClientType.ADMIN);
+    public void addCustomer(@RequestBody Customer customer) throws CouponException {
         adminService.addCustomer(customer);
     }
 
     @PutMapping("/customer/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCustomer(@RequestHeader("Authorization") UUID token,
-                               @PathVariable int id,
+    public void updateCustomer(@PathVariable int id,
                                @RequestBody Customer customer) throws CouponException {
-        tokenService.validate(token, ClientType.ADMIN);
         adminService.updateCustomer(id, customer);
     }
 
     @DeleteMapping("/customer/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCustomer(@RequestHeader("Authorization") UUID token,
-                               @PathVariable int id) throws CouponException {
-        tokenService.validate(token, ClientType.ADMIN);
+    public void deleteCustomer(@PathVariable int id) throws CouponException {
         adminService.deleteCustomer(id);
     }
 
     @GetMapping("/customer")
-    public List<Customer> getAllCustomers(@RequestHeader("Authorization") UUID token) throws CouponException {
-        tokenService.validate(token, ClientType.ADMIN);
+    public List<Customer> getAllCustomers() throws CouponException {
         return adminService.getAllCustomers();
     }
 
     @GetMapping("/customer/{id}")
-    public Customer getCustomerById(@RequestHeader("Authorization") UUID token,
-                                    @PathVariable int id) throws CouponException {
-        tokenService.validate(token, ClientType.ADMIN);
+    public Customer getCustomerById(@PathVariable int id) throws CouponException {
         return adminService.getCustomerById(id);
     }
 

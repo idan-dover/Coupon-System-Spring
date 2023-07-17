@@ -1,7 +1,5 @@
 package com.jb.CouponSystemSpring.security;
 
-import com.jb.CouponSystemSpring.exceptions.CouponException;
-import com.jb.CouponSystemSpring.exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.models.ClientType;
 import com.jb.CouponSystemSpring.models.LoginResponse;
 import org.springframework.stereotype.Service;
@@ -32,13 +30,11 @@ public class TokenServiceImpl implements TokenService {
         return new LoginResponse(token, clientType);
     }
 
-    // TODO: 07/07/2023 ask kobi if this two methods are relevant
-
     @Override
-    public boolean isUserAllowed(UUID token, ClientType type) throws CouponException {
+    public boolean validate(UUID token, ClientType type) {
         Information info = tokens.get(token);
         if (info == null) {
-            throw new CouponException(ErrMsg.INCORRECT_TOKEN);
+            return false;
         }
 
         ClientType clientType = info.getClientType();
@@ -47,23 +43,10 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public Information getUserInfo(UUID token, ClientType type) {
+    public Information getUserInfo(UUID token) {
         return tokens.get(token);
     }
 
-    @Override
-    public int validate(UUID token, ClientType type) throws CouponException {
-        Information info = tokens.get(token);
-        if (info == null) {
-            throw new CouponException(ErrMsg.INCORRECT_TOKEN);
-        }
-
-        if (type != info.getClientType()) {
-            throw new CouponException(ErrMsg.INCORRECT_TOKEN);
-        }
-
-        return info.getId();
-    }
 
     @Override
     public void clear(int toClear) {
