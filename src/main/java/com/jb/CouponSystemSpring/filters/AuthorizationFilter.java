@@ -18,7 +18,6 @@ public class AuthorizationFilter implements Filter {
     @Autowired
     private TokenService tokenService;
 
-    // TODO: 17/07/2023 ask kobi about how to implement it his way
     // TODO: 17/07/2023 ask kobi about error handling because I am not able to throw errors in the token service
 
     @Override
@@ -42,25 +41,27 @@ public class AuthorizationFilter implements Filter {
 
         if (uri.contains("company") && tokenService.validate(token, ClientType.COMPANY)) {
             int id = tokenService.getUserInfo(token).getId();
-//            String forwardUrl = String.format("/api/companies/%d", id);
-//            RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher(forwardUrl);
-//            requestDispatcher.forward(servletRequest, servletResponse);
-            httpServletRequest.setAttribute("companyId", id);
-            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            String forwardUrl = concatIdToUri(uri, "company", id);
+            RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher(forwardUrl);
+            requestDispatcher.forward(servletRequest, servletResponse);
             return;
         }
 
         if (uri.contains("customer") && tokenService.validate(token, ClientType.CUSTOMER)) {
             int id = tokenService.getUserInfo(token).getId();
-//            String forwardUrl = String.format("/api/companies/%d", id);
-//            RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher(forwardUrl);
-//            requestDispatcher.forward(servletRequest, servletResponse);
-            httpServletRequest.setAttribute("customerId", id);
-            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            String forwardUrl = concatIdToUri(uri, "customer", id);
+            RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher(forwardUrl);
+            requestDispatcher.forward(servletRequest, servletResponse);
             return;
         }
 
         httpServletResponse.sendError(400, "UNAUTHORIZED");
+
+    }
+
+    private String concatIdToUri(String baseUri, String concatFrom, int id) {
+        String replacement = String.format("%s/%d", concatFrom, id);
+        return baseUri.replace(concatFrom, replacement);
 
     }
 }
