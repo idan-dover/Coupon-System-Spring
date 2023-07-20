@@ -59,9 +59,9 @@ public class AuthorizationFilter implements Filter {
 
     }
 
-    private String concatIdToUri(String baseUri, String concatFrom, int id) {
-        String replacement = String.format("%s/%d", concatFrom, id);
-        return baseUri.replace(concatFrom, replacement);
+    private String concatIdToUri(String baseUri, String userTypeUri, int id) {
+        String replacement = String.format("%s/%d", userTypeUri, id);
+        return baseUri.replace(userTypeUri, replacement);
 
     }
 }

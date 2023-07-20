@@ -17,61 +17,61 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @PostMapping("/company")
+    @PostMapping("/companies")
     @ResponseStatus(HttpStatus.CREATED)
     public void addCompany(@RequestBody Company company) throws CouponException {
         adminService.addCompany(company);
     }
 
-    @PutMapping("/company/{id}")
+    @PutMapping("/companies/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCompany(@PathVariable int id,
                               @RequestBody Company company) throws CouponException {
         adminService.updateCompany(id, company);
     }
 
-    @DeleteMapping("/company/{id}")
+    @DeleteMapping("/companies/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCompany(@PathVariable int id) throws CouponException {
         adminService.deleteCompany(id);
     }
 
-    @GetMapping("/company")
+    @GetMapping("/companies")
     public List<Company> getAllCompanies() throws CouponException {
         return adminService.getAllCompanies();
     }
 
-    @GetMapping("/company/{id}")
+    @GetMapping("/companies/{id}")
     public Company getCompanyById(@PathVariable int id) throws CouponException {
         return adminService.getCompanyById(id);
 
     }
 
-    @PostMapping("/customer")
+    @PostMapping("/customers")
     @ResponseStatus(HttpStatus.CREATED)
     public void addCustomer(@RequestBody Customer customer) throws CouponException {
         adminService.addCustomer(customer);
     }
 
-    @PutMapping("/customer/{id}")
+    @PutMapping("/customers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCustomer(@PathVariable int id,
                                @RequestBody Customer customer) throws CouponException {
         adminService.updateCustomer(id, customer);
     }
 
-    @DeleteMapping("/customer/{id}")
+    @DeleteMapping("/customers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomer(@PathVariable int id) throws CouponException {
         adminService.deleteCustomer(id);
     }
 
-    @GetMapping("/customer")
+    @GetMapping("/customers")
     public List<Customer> getAllCustomers() throws CouponException {
         return adminService.getAllCustomers();
     }
 
-    @GetMapping("/customer/{id}")
+    @GetMapping("/customers/{id}")
     public Customer getCustomerById(@PathVariable int id) throws CouponException {
         return adminService.getCustomerById(id);
     }
