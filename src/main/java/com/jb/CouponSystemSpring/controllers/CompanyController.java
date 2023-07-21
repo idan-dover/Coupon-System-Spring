@@ -4,15 +4,12 @@ import com.jb.CouponSystemSpring.beans.Category;
 import com.jb.CouponSystemSpring.beans.Company;
 import com.jb.CouponSystemSpring.beans.Coupon;
 import com.jb.CouponSystemSpring.exceptions.CouponException;
-import com.jb.CouponSystemSpring.models.ClientType;
-import com.jb.CouponSystemSpring.security.TokenService;
 import com.jb.CouponSystemSpring.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/company")
@@ -20,60 +17,49 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    @Autowired
-    private TokenService tokenService;
-
-    @PostMapping("/coupon")
+    @PostMapping("/{companyId}/coupon")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCoupon(@RequestHeader("Authorization") UUID token,
+    public void addCoupon(@PathVariable int companyId,
                           @RequestBody Coupon coupon) throws CouponException {
-        int companyId = tokenService.validate(token, ClientType.COMPANY);
         companyService.addCoupon(companyId, coupon);
     }
 
-    @PutMapping("/coupon/{id}")
+    @PutMapping("/{companyId}/coupon/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCoupon(@RequestHeader("Authorization") UUID token,
+    public void updateCoupon(@PathVariable int companyId,
                              @PathVariable int id,
                              @RequestBody Coupon coupon) throws CouponException {
-        int companyId = tokenService.validate(token, ClientType.COMPANY);
         companyService.updateCoupon(companyId, id, coupon);
     }
 
 
-    @GetMapping
-    public Company getDetails(@RequestHeader("Authorization") UUID token) throws CouponException {
-        int companyId = tokenService.validate(token, ClientType.COMPANY);
+    @GetMapping("/{companyId}")
+    public Company getDetails(@PathVariable int companyId) throws CouponException {
         return companyService.getDetails(companyId);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{companyId}/coupon/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCoupon(@RequestHeader("Authorization") UUID token,
-                             @RequestParam int val) throws CouponException {
-        int companyId = tokenService.validate(token, ClientType.COMPANY);
-        companyService.deleteCoupon(companyId, val);
+    public void deleteCoupon(@PathVariable int companyId,
+                             @PathVariable int id) throws CouponException {
+        companyService.deleteCoupon(companyId, id);
     }
 
-    @GetMapping("/coupon")
-    public List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token) throws CouponException {
-        int companyId = tokenService.validate(token, ClientType.COMPANY);
+    @GetMapping("/{companyId}/coupon")
+    public List<Coupon> getAllCoupons(@PathVariable int companyId) throws CouponException {
         return companyService.getAllCoupons(companyId);
     }
 
-    @GetMapping("/coupon/category")
-    public List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token,
+    @GetMapping("/{companyId}/coupon/category")
+    public List<Coupon> getAllCoupons(@PathVariable int companyId,
                                       @RequestParam Category val) throws CouponException {
-        int companyId = tokenService.validate(token, ClientType.COMPANY);
         return companyService.getAllCoupons(companyId, val);
     }
 
-    @GetMapping("/coupon/price")
-    public List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token,
+    @GetMapping("/{companyId}/coupon/price")
+    public List<Coupon> getAllCoupons(@PathVariable int companyId,
                                       @RequestParam double val) throws CouponException {
-        int companyId = tokenService.validate(token, ClientType.COMPANY);
         return companyService.getAllCoupons(companyId, val);
     }
-
 
 }
