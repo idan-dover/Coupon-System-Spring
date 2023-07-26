@@ -7,7 +7,7 @@ import com.jb.CouponSystemSpring.models.User;
 
 public interface AuthService {
 
-    void register(Register register) throws CouponException;
+    User register(Register register) throws CouponException;
 
     LoginResponse login(User user) throws CouponException;
 }

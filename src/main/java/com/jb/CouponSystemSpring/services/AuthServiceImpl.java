@@ -14,20 +14,24 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl extends ClientService implements AuthService {
 
     @Override
-    public void register(Register register) throws CouponException {
+    public User register(Register register) throws CouponException {
         ClientType type = register.getClientType();
         if (type.equals(ClientType.ADMIN)) {
             throw new CouponException(ErrMsg.CANT_CREATE_ADMIN);
         }
 
         switch (type) {
-            case COMPANY -> registerAsCompany(register);
-            case CUSTOMER -> registerAsCustomer(register);
+            case COMPANY -> {
+                return registerAsCompany(register);
+            }
+            case CUSTOMER -> {
+                return registerAsCustomer(register);
+            }
         }
-
+        throw new CouponException(ErrMsg.NO_CLIENT_SUPPORTED);
     }
 
-    private void registerAsCompany(Register register) throws CouponException {
+    private User registerAsCompany(Register register) throws CouponException {
         if (companyRepo.existsByEmail(register.getEmail())) {
             throw new CouponException(ErrMsg.EMAIL_ALREADY_EXISTS);
         }
@@ -39,9 +43,15 @@ public class AuthServiceImpl extends ClientService implements AuthService {
                 .build();
 
         companyRepo.save(company);
+
+        return User.builder()
+                .email(register.getEmail())
+                .password(register.getPassword())
+                .clientType(ClientType.COMPANY)
+                .build();
     }
 
-    private void registerAsCustomer(Register register) throws CouponException {
+    private User registerAsCustomer(Register register) throws CouponException {
         if (customerRepo.existsByEmail(register.getEmail())) {
             throw new CouponException(ErrMsg.EMAIL_ALREADY_EXISTS);
         }
@@ -54,6 +64,12 @@ public class AuthServiceImpl extends ClientService implements AuthService {
                 .build();
 
         customerRepo.save(customer);
+
+        return User.builder()
+                .email(register.getEmail())
+                .password(register.getPassword())
+                .clientType(ClientType.CUSTOMER)
+                .build();
     }
 
     @Override
