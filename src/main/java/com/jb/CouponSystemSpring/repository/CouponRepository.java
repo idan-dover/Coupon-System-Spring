@@ -31,7 +31,7 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE `coupon-system-spring`.coupons c SET c.amount = c.amount - 1 WHERE c.id = ?", nativeQuery = true)
+    @Query(value = "UPDATE coupons c SET c.amount = c.amount - 1 WHERE c.id = ?", nativeQuery = true)
     void reduceAmountByOne(int couponId);
 
 
