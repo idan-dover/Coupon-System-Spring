@@ -8,8 +8,8 @@ import lombok.Getter;
 public enum ErrMsg {
     NO_ID_FOUND("no ID found"),
     ID_ALREADY_EXISTS("the id is already inside the DB"),
-    NAME_ALREADY_EXISTS("the name already exists in the DB"),
-    EMAIL_ALREADY_EXISTS("the email already exists in the DB"),
+    NAME_ALREADY_EXISTS("this name already exists"),
+    EMAIL_ALREADY_EXISTS("this email already exists"),
     CANT_UPDATE_EMAIL("you can't update the email"),
     NO_CLIENT_SUPPORTED("no such client type"),
     CANT_CREATE_ADMIN("you can't register as admin"),

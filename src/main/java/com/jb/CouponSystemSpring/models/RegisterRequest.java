@@ -11,7 +11,7 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class Register extends RegisterResponse {
+public class RegisterRequest extends RegisterResponse {
     private final Map<String, Object> params = new HashMap<>();
 
 }

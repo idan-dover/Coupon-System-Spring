@@ -4,122 +4,73 @@ import com.jb.CouponSystemSpring.beans.Company;
 import com.jb.CouponSystemSpring.beans.Customer;
 import com.jb.CouponSystemSpring.exceptions.CouponException;
 import com.jb.CouponSystemSpring.exceptions.ErrMsg;
-import com.jb.CouponSystemSpring.models.ClientType;
-import com.jb.CouponSystemSpring.models.LoginResponse;
-import com.jb.CouponSystemSpring.models.Register;
-import com.jb.CouponSystemSpring.models.User;
+import com.jb.CouponSystemSpring.models.*;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthServiceImpl extends ClientService implements AuthService {
 
     @Override
-    public User register(Register register) throws CouponException {
-        ClientType type = register.getClientType();
+    public RegisterResponse register(RegisterRequest registerReq) throws CouponException {
+        ClientType type = registerReq.getClientType();
         if (type.equals(ClientType.ADMIN)) {
             throw new CouponException(ErrMsg.CANT_CREATE_ADMIN);
         }
 
-        switch (type) {
-            case COMPANY -> {
-                return registerAsCompany(register);
-            }
-            case CUSTOMER -> {
-                return registerAsCustomer(register);
-            }
-        }
-        throw new CouponException(ErrMsg.NO_CLIENT_SUPPORTED);
-    }
-
-    private User registerAsCompany(Register register) throws CouponException {
-        if (companyRepo.existsByEmail(register.getEmail())) {
+        if (companyRepo.existsByEmail(registerReq.getEmail())) {
             throw new CouponException(ErrMsg.EMAIL_ALREADY_EXISTS);
         }
 
-        Company company = Company.builder()
-                .name((String) register.getParams().get("name"))
-                .email(register.getEmail())
-                .password(register.getPassword())
-                .build();
-
-        companyRepo.save(company);
-
-        return User.builder()
-                .email(register.getEmail())
-                .password(register.getPassword())
-                .clientType(ClientType.COMPANY)
-                .build();
-    }
-
-    private User registerAsCustomer(Register register) throws CouponException {
-        if (customerRepo.existsByEmail(register.getEmail())) {
+        if (customerRepo.existsByEmail(registerReq.getEmail())) {
             throw new CouponException(ErrMsg.EMAIL_ALREADY_EXISTS);
         }
 
-        Customer customer = Customer.builder()
-                .firstName((String) register.getParams().get("firstName"))
-                .lastName((String) register.getParams().get("lastName"))
-                .email(register.getEmail())
-                .password(register.getPassword())
-                .build();
+        if (type.equals(ClientType.COMPANY)) {
+            Company company = Company.builder()
+                    .name((String) registerReq.getParams().get("name"))
+                    .email(registerReq.getEmail())
+                    .password(registerReq.getPassword())
+                    .build();
 
-        customerRepo.save(customer);
+            companyRepo.save(company);
+        }
 
-        return User.builder()
-                .email(register.getEmail())
-                .password(register.getPassword())
-                .clientType(ClientType.CUSTOMER)
+        if (type.equals(ClientType.CUSTOMER)) {
+            Customer customer = Customer.builder()
+                    .firstName((String) registerReq.getParams().get("firstName"))
+                    .lastName((String) registerReq.getParams().get("lastName"))
+                    .email(registerReq.getEmail())
+                    .password(registerReq.getPassword())
+                    .build();
+
+            customerRepo.save(customer);
+        }
+
+        return RegisterResponse.builder()
+                .email(registerReq.getEmail())
+                .password(registerReq.getPassword())
+                .clientType(type)
                 .build();
     }
-
+    
     @Override
     public LoginResponse login(User user) throws CouponException {
-        ClientType type = user.getClientType();
-        switch (type) {
-            case ADMIN -> {
-                return loginAsAdmin(user);
-            }
-            case COMPANY -> {
-                return loginAsCompany(user);
-            }
 
-            case CUSTOMER -> {
-                return loginAsCustomer(user);
-            }
-        }
-        return null;
-    }
-
-    private LoginResponse loginAsAdmin(User user) throws CouponException {
-        String adminEmail = "admin@admin.com";
-        String adminPassword = "1234";
-
-        if (!user.getEmail().equals(adminEmail) || !user.getPassword().equals(adminPassword)) {
-            throw new CouponException(ErrMsg.EMAIL_OR_PASSWORD_INCORRECT);
+        if (user.getEmail().equals("admin@admin.com") && user.getPassword().equals("1234")) {
+            return tokenService.addToken(0, ClientType.ADMIN);
         }
 
-        return tokenService.addToken(0, ClientType.ADMIN);
-    }
-
-    private LoginResponse loginAsCompany(User user) throws CouponException {
-        if (!companyRepo.existsByEmailAndPassword(user.getEmail(), user.getPassword())) {
-            throw new CouponException(ErrMsg.EMAIL_OR_PASSWORD_INCORRECT);
+        if (companyRepo.existsByEmailAndPassword(user.getEmail(), user.getPassword())) {
+            int id = companyRepo.findIdByEmail(user.getEmail());
+            return tokenService.addToken(id, ClientType.COMPANY);
         }
 
-        int id = companyRepo.findIdByEmail(user.getEmail());
-
-        return tokenService.addToken(id, ClientType.COMPANY);
-    }
-
-    private LoginResponse loginAsCustomer(User user) throws CouponException {
-        if (!customerRepo.existsByEmailAndPassword(user.getEmail(), user.getPassword())) {
-            throw new CouponException(ErrMsg.EMAIL_OR_PASSWORD_INCORRECT);
+        if (customerRepo.existsByEmailAndPassword(user.getEmail(), user.getPassword())) {
+            int id = customerRepo.findIdByEmail(user.getEmail());
+            return tokenService.addToken(id, ClientType.CUSTOMER);
         }
 
-        int id = customerRepo.findIdByEmail(user.getEmail());
-
-        return tokenService.addToken(id, ClientType.CUSTOMER);
+        throw new CouponException(ErrMsg.EMAIL_OR_PASSWORD_INCORRECT);
     }
-
 
 }
