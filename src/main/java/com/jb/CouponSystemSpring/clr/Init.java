@@ -9,15 +9,13 @@ import com.jb.CouponSystemSpring.repository.CouponRepository;
 import com.jb.CouponSystemSpring.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
-@Component
-@Order(1)
+//@Component
+//@Order(1)
 public class Init implements CommandLineRunner {
 
     @Autowired
