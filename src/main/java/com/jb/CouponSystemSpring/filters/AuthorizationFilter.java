@@ -1,6 +1,7 @@
 package com.jb.CouponSystemSpring.filters;
 
 
+import com.jb.CouponSystemSpring.exceptions.ErrMsg;
 import com.jb.CouponSystemSpring.models.ClientType;
 import com.jb.CouponSystemSpring.security.TokenService;
 import jakarta.servlet.*;
@@ -17,8 +18,6 @@ public class AuthorizationFilter implements Filter {
 
     @Autowired
     private TokenService tokenService;
-
-    // TODO: 17/07/2023 ask kobi about error handling because I am not able to throw errors in the token service
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -55,7 +54,7 @@ public class AuthorizationFilter implements Filter {
             return;
         }
 
-        httpServletResponse.sendError(400, "UNAUTHORIZED");
+        httpServletResponse.sendError(401, ErrMsg.UNAUTHORIZED.getMessage());
 
     }
 

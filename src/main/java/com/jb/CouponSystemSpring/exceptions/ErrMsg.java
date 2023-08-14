@@ -22,7 +22,8 @@ public enum ErrMsg {
     CANT_PURCHASE_TWICE("you can't buy the same coupon twice"),
     OUT_OF_STOCK("this coupon is out of stock"),
     EXPIRED("this coupon is expired"),
-    NO_OWNERSHIP("you don't own this coupon");
+    NO_OWNERSHIP("you don't own this coupon"),
+    UNAUTHORIZED("You are unauthorized");
 
     private final String message;
 }
